@@ -36,7 +36,10 @@ const ProductQuantity = props => {
                 </View>
             </View>
             <View style={{ paddingRight: 50 }}>
-                <Text style={{ fontSize: 14, fontWeight: "400" }}>{count}</Text>
+                <Text style={{
+                    fontSize: 14, fontWeight: "400",
+                    color: AppColor.white
+                }}>{count}</Text>
             </View>
             <View style={{
                 borderRadius: 100,
@@ -50,7 +53,7 @@ const ProductQuantity = props => {
                 alignItems: "center",
             }}>
                 <TouchableOpacity onPress={() => handleSubtract(count)}>
-                        {minusIcon && <props.minusIcon />}
+                    {minusIcon && <props.minusIcon />}
                 </TouchableOpacity>
             </View>
 

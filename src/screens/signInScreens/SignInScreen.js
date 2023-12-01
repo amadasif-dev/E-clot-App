@@ -5,7 +5,6 @@ import AppStrings from "../../constants/AppString";
 import TextComponents from "../../components/TextComponent";
 import AppIcons from "../../constants/AppIcon";
 import ButtonComponent from "../../components/ButtonComponent";
-
 import { useNavigation } from "@react-navigation/native";
 import AppImages from "../../constants/AppImages";
 import { AppRoutes } from "../../routes/AppRoutes";
@@ -29,6 +28,7 @@ const SignInScreen = () => {
                     placeholder={AppStrings.emailAddress}
                     keyboardType={"email-address"}
                     secureTextEntry={true}
+                    placeholderTextColor={styles.placeholderTextColor}
                 />
             </View>
             <View>
@@ -62,6 +62,7 @@ const SignInScreen = () => {
                         fontWeight: "400",
                         letterSpacing: -0.400,
                         fontSize: 12,
+                        color:AppColor.white
                     }} >{AppStrings.createOne}</Text>
                 </TouchableOpacity>
             </View>
@@ -134,7 +135,11 @@ const styles = StyleSheet.create({
     },
     btnText: {
         paddingHorizontal: 55
-    }
+    },
+    placeholderTextColor:{
+    color:AppColor.lightDark,
+    },
+
 
 })
 export default SignInScreen;

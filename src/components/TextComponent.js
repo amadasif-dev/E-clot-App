@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
-import { View, TextInput } from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
+import AppColor from '../theme/AppColor';
+import AppIcons from '../constants/AppIcon';
 const TextComponents = props => {
-    const { placeholder, style, obscure, onChangeText, onBlur, value, keyboardType,secureTextEntry,icon } = props;
+    const { placeholder,style, obscure, onChangeText, onBlur, value, keyboardType,secureTextEntry,icon } = props;
     return (
         <View>
             <TextInput
                 placeholder={placeholder}
+                placeholderTextColor={AppColor.white}
                 style={style}
                 obscure={obscure}
                 onChangeText={onChangeText}
@@ -17,7 +20,13 @@ const TextComponents = props => {
             />
         </View>
 
+
     )
 }
+const styles =StyleSheet.create({
+    placeholderStyle:{
+        color:AppColor.lightDark,
+    }
+})
 export default TextComponents;
 

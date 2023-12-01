@@ -35,19 +35,26 @@ const HomePageScreen = () => {
                     </View>
                 </View>
             </View>
+
             <View style={{
                 top: 24,
                 borderRadius: 100,
                 backgroundColor: AppColor.lightDark,
                 margin: 24,
-
+                flexDirection: 'row',
             }}>
+                <View style={{
+                    paddingHorizontal: 19,
+                    justifyContent: "center"
+                }} >
+                    <AppIcons.icSearch />
+                </View>
                 <TextComponents
                     style={styles.searchStyle}
                     placeholder={AppStrings.Search}
-                    secureTextEntry={true}
-                    icon={AppIcons.icSearch}
+                    secureTextEntry={false}
                 />
+
             </View>
             <View style={{ flexDirection: 'row', justifyContent: "space-between", paddingTop: 24 }}>
                 <Text style={[styles.textStyle]}>
@@ -60,39 +67,43 @@ const HomePageScreen = () => {
 
                 </View>
             </View>
-            <CategoriesComponents />
-            <View style={{ flexDirection: 'row', justifyContent: "space-between", }}>
-                <Text style={[styles.textStyle, { paddingTop: 24 }]}>
-                    {AppStrings.topSelling}
-                </Text>
-                <View>
-                    <Text style={[styles.textStyle, { fontWeight: "400", paddingTop: 24 }]}>
-                        {AppStrings.SeeAll}
-                    </Text>
-                </View>
-            </View>
+            <ScrollView>
 
-            <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 12, paddingTop: 16 }}
-                data={ProductListing}
-                renderItem={({ item }) => {
-                    return (
-                        <View style={{ paddingHorizontal: 13 }}>
-                            <ItemsComponents
-                                img={item?.productImage}
-                                text={item?.productName}
-                                icon={AppIcons.icApple}
-                                priceText={item?.productPrice}
-                                item={item}
-                            />
-                        </View>
-                    )
-                }
-                }
-                keyExtractor={item => item.id}
-            />
+
+                <CategoriesComponents />
+                <View style={{ flexDirection: 'row', justifyContent: "space-between", }}>
+                    <Text style={[styles.textStyle, { paddingTop: 24 }]}>
+                        {AppStrings.topSelling}
+                    </Text>
+                    <View>
+                        <Text style={[styles.textStyle, { fontWeight: "400", paddingTop: 24 }]}>
+                            {AppStrings.SeeAll}
+                        </Text>
+                    </View>
+                </View>
+
+                <FlatList
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{ paddingHorizontal: 12, paddingTop: 16 }}
+                    data={ProductListing}
+                    renderItem={({ item }) => {
+                        return (
+                            <View style={{ paddingHorizontal: 13 }}>
+                                <ItemsComponents
+                                    img={item?.productImage}
+                                    text={item?.productName}
+                                    icon={AppIcons.icApple}
+                                    priceText={item?.productPrice}
+                                    item={item}
+                                />
+                            </View>
+                        )
+                    }
+                    }
+                    keyExtractor={item => item.id}
+                />
+            </ScrollView>
 
         </View>
 
@@ -124,7 +135,7 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         letterSpacing: -0.400,
         fontSize: 16,
-        paddingHorizontal: 15,
+        color: AppColor.white,
     },
     textInput: {
         fontSize: 12,

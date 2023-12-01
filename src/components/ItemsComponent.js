@@ -31,7 +31,7 @@ const ItemsComponents = props => {
                 onPress={() => navigation.navigate(AppRoutes.detail, { item: item })}
             >
                 <View style={styles.textStyle}>
-                    <Text style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
+                    <Text numberOfLines={1} style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
                 </View>
                 <View style={{ paddingVertical: 12 }}>
                     <Text style={[styles.textStyle, { paddingTop: 1 }]}>
@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingHorizontal: 5,
         color: AppColor.white,
+        maxWidth: 100
     },
 
 })

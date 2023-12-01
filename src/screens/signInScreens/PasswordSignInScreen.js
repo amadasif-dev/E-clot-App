@@ -24,7 +24,6 @@ const PasswordSignInScreen = () => {
         <TextComponents
           style={styles.emailText}
           placeholder={AppStrings.password}
-          keyboardType={"email-address"}
           secureTextEntry={true}
         />
       </View>
@@ -57,6 +56,7 @@ const PasswordSignInScreen = () => {
             fontWeight: "400",
             letterSpacing: -0.400,
             fontSize: 12,
+            color:AppColor.white,
           }} >{AppStrings.reset}</Text>
         </TouchableOpacity>
       </View>

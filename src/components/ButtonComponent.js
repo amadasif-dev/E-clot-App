@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, StyleSheet,Image } from 'react-native';
 import AppColor from "../theme/AppColor";
 
 const ButtonComponent = props => {
-    const { text, icon, onPress, style, btnLabelStyle, img } = props;
+    const { text, icon, onPress, style, btnLabelStyle, img,addBag } = props;
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.button}
@@ -19,10 +19,10 @@ const ButtonComponent = props => {
                                 ? [styles.buttonText, btnLabelStyle]
                                 : [styles.buttonText, { ...btnLabelStyle }]
                         }>
-                        {text}</Text>
-                    <View style={{ paddingHorizontal: 70 }}>
-                        {/* <Text>{addBad}</Text> */}
-                    </View>
+                        {text}
+                       
+                        </Text>
+                   
                 </View>
             </TouchableOpacity>
 
