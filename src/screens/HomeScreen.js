@@ -10,7 +10,6 @@ import ItemsComponents from "../components/ItemsComponent";
 import AppImages from "../constants/AppImages";
 import ProductListing from "../json/ProductListingJson";
 
-
 const HomePageScreen = () => {
     return (
         <View style={{ flex: 1, backgroundColor: AppColor.dark }}>

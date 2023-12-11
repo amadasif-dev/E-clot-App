@@ -56,7 +56,6 @@ const ProductQuantity = props => {
                     {minusIcon && <props.minusIcon />}
                 </TouchableOpacity>
             </View>
-
         </View>
     )
 }
