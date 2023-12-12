@@ -6,4 +6,5 @@ export default AppColors = {
     orange: "#EC6D26",
     red: "#FA3636",
     yellow: "#F4BD2F",
+    red:"#FF0000",
 }

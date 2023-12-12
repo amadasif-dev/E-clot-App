@@ -8,4 +8,8 @@ export const AppRoutes = {
     categories: "Categories",
     hoodies: "Hoodies",
     detail:"DetailScreen",
+    notification:"NotificationScreen",
+    order:"OrderScreen",
+    profile:"ProfilScreen",
+    bottomTabs:"bottomTabs"
 }

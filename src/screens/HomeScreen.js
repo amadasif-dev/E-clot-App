@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, TouchableOpacity, Text, ScrollView, FlatList } from "react-native"
 import AppIcons from "../constants/AppIcon";
 import ButtonComponents from "../components/ButtonComponent";
@@ -7,10 +7,22 @@ import AppStrings from "../constants/AppString";
 import TextComponents from "../components/TextComponent";
 import CategoriesComponents from "../components/CategoriesComponent";
 import ItemsComponents from "../components/ItemsComponent";
-import AppImages from "../constants/AppImages";
 import ProductListing from "../json/ProductListingJson";
+import CustomModal from "../components/ModalComponent";
+import ButtonComponent from "../components/ButtonComponent";
+import { AppRoutes } from "../routes/AppRoutes";
+
 
 const HomePageScreen = () => {
+    const [isAlertVisible, setAlertVisible] = useState(false);
+    const openModal = () => {
+        setAlertVisible(true);
+    };
+
+    const closeModal = () => {
+        setAlertVisible(false);
+    };
+
     return (
         <View style={{ flex: 1, backgroundColor: AppColor.dark }}>
             <View style={styles.conatiner}>
@@ -27,9 +39,53 @@ const HomePageScreen = () => {
                             paddingHorizontal: 12,
                             top: 12
                         }}>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={openModal} >
                                 <AppIcons.icBag />
                             </TouchableOpacity>
+                            <CustomModal isVisible={isAlertVisible} onClose={closeModal}>
+                                <View style={styles.container}>
+                                    <TextComponents
+                                        style={styles.emailText}
+                                        placeholder={"Item Name"}
+                                        keyboardType={"email-address"}
+                                        secureTextEntry={true}
+                                    />
+                                </View>
+                                <View style={styles.container}>
+                                    <TextComponents
+                                        style={styles.emailText}
+                                        placeholder={"Item Price"}
+                                        keyboardType={"email-address"}
+                                        secureTextEntry={true}
+                                    />
+                                </View>
+                                <View style={styles.container}>
+                                    <TextComponents
+                                        style={styles.emailText}
+                                        placeholder={"Color Code"}
+                                        keyboardType={"email-address"}
+
+                                        secureTextEntry={true}
+                                    />
+                                </View>
+                                <View style={[styles.container]}>
+                                    <TextComponents
+                                        style={styles.emailText}
+                                        placeholder={"Details"}
+                                        keyboardType={"email-address"}
+                                        secureTextEntry={true}
+                                    />
+                                </View>
+                                <View>
+                                    <ButtonComponent
+                                        style={styles.btnStyle}
+                                        text={"Submit"}
+                                        btnLabelStyle={styles.btnText}
+
+                                    />
+                                </View>
+
+                            </CustomModal>
                         </View>
                     </View>
                 </View>
@@ -88,8 +144,10 @@ const HomePageScreen = () => {
                     data={ProductListing}
                     renderItem={({ item }) => {
                         return (
+
                             <View style={{ paddingHorizontal: 13 }}>
                                 <ItemsComponents
+                                     key={item.id ? item.id.toString() : Math.random().toString()}
                                     img={item?.productImage}
                                     text={item?.productName}
                                     icon={AppIcons.icApple}
@@ -98,9 +156,9 @@ const HomePageScreen = () => {
                                 />
                             </View>
                         )
-                    }
-                    }
-                    keyExtractor={item => item.id}
+                    }}
+                    keyExtractor={(item) => (item.id ? item.id.toString() : Math.random().toString())}
+
                 />
             </ScrollView>
 
@@ -148,7 +206,31 @@ const styles = StyleSheet.create({
         color: AppColor.white,
         paddingHorizontal: 24,
 
-    }
+    },
+    emailText: {
+        fontFamily: "Roboto-Light",
+        fontWeight: "400",
+        letterSpacing: -0.400,
+        fontSize: 16,
+        paddingHorizontal: 15,
+        color: AppColor.white,
+    },
+    container: {
+        borderRadius: 4,
+        backgroundColor: AppColor.lightDark,
+        marginTop: 10,
+        marginHorizontal: 24,
+    },
+    btnStyle: {
+        width: 250,
+        paddingVertical: 15,
+        backgroundColor: AppColor.lightDark,
+        marginTop: 16,
+        borderRadius: 100,
+        justifyContent: "center",
+        alignItems: "center",
+
+    },
 
 })
 export default HomePageScreen;

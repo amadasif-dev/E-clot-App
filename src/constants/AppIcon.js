@@ -19,6 +19,12 @@ import icSearch from "../assets/icons/icSearch.svg"
 import icColor from "../assets/icons/icColor.svg"
 import icAdd from "../assets/icons/icAdd.svg"
 import icMinus from "../assets/icons/icMinus.svg"
+import icHomeActive from "../assets/icons/icInActive.svg"
+import icOrderActive from "../assets/icons/icOrderActive.svg"
+import icActiveNotification from '../assets/icons/icActiveNotification.svg'
+import icProfileNoActive from "../assets/icons/icProfileNoActive.svg"
+import icActiveProfileTab from "../assets/icons/icActiveProfileTab.svg"
+import icOrderNoActice from '../assets/icons/icOrderNoActice.svg'
 
 const AppIcons = {
     icApple,
@@ -42,5 +48,11 @@ const AppIcons = {
     icColor,
     icAdd,
     icMinus,
+    icHomeActive,
+    icOrderActive,
+    icActiveNotification,
+    icProfileNoActive,
+    icActiveProfileTab,
+    icOrderNoActice,
 };
 export default AppIcons;

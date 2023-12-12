@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
 import AppColor from "../../theme/AppColor";
 import AppStrings from "../../constants/AppString";
@@ -8,9 +8,16 @@ import ButtonComponent from "../../components/ButtonComponent";
 import { useNavigation } from "@react-navigation/native";
 import AppImages from "../../constants/AppImages";
 import { AppRoutes } from "../../routes/AppRoutes";
+import { Formik } from "formik";
+import { loginValidationSchema } from "../../validation/validation";
 
 const SignInScreen = () => {
     const navigation = useNavigation()
+    const [error, setError] = useState(null)
+
+    const handleLogin = (email) => {
+        navigation.navigate(AppRoutes.password)
+    }
     return (
         <View style={{
             backgroundColor: AppColor.dark,
@@ -22,23 +29,49 @@ const SignInScreen = () => {
             }}>
                 <Text style={styles.textstyle} >{AppStrings.signin}</Text>
             </View>
-            <View style={styles.container}>
-                <TextComponents
-                    style={styles.emailText}
-                    placeholder={AppStrings.emailAddress}
-                    keyboardType={"email-address"}
-                    secureTextEntry={true}
-                    placeholderTextColor={styles.placeholderTextColor}
-                />
-            </View>
-            <View>
-                <ButtonComponent
-                    style={styles.btnStyle}
-                    text={AppStrings.continue}
-                    btnLabelStyle={styles.btnText}
-                    onPress={() => navigation.navigate(AppRoutes.password)}
-                />
-            </View>
+
+            <Formik
+
+                initialValues={{ email: 'clot.2023@gmail.com' }}
+                onSubmit={(values) => {
+                    console.log(values)
+                    const { email } = values;
+                    handleLogin(email)
+                }}
+                validationSchema={loginValidationSchema}
+            >
+                {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                    <>
+                        <View style={styles.container}>
+                            <TextComponents
+                                style={styles.emailText}
+                                placeholder={AppStrings.emailAddress}
+                                keyboardType={"email-address"}
+                                secureTextEntry={true}
+                                placeholderTextColor={styles.placeholderTextColor}
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
+                                value={values.email}
+                            />
+                        </View>
+                        {(errors.email && touched.email) &&
+                            <Text style={styles.errorText}>{errors.email}</Text>
+                        }
+                        <View>
+                            <ButtonComponent
+                                style={styles.btnStyle}
+                                text={AppStrings.continue}
+                                btnLabelStyle={styles.btnText}
+                                onPress={handleSubmit}
+                            />
+                            {error && <Text style={[styles.errorText, { paddingTop: 10 }]}>{error}</Text>}
+                        </View>
+                    </>
+                )}
+
+
+            </Formik>
+
             <View style={{
                 paddingHorizontal: 24,
                 paddingTop: 16,
@@ -62,7 +95,7 @@ const SignInScreen = () => {
                         fontWeight: "400",
                         letterSpacing: -0.400,
                         fontSize: 12,
-                        color:AppColor.white
+                        color: AppColor.white
                     }} >{AppStrings.createOne}</Text>
                 </TouchableOpacity>
             </View>
@@ -136,10 +169,16 @@ const styles = StyleSheet.create({
     btnText: {
         paddingHorizontal: 55
     },
-    placeholderTextColor:{
-    color:AppColor.lightDark,
+    placeholderTextColor: {
+        color: AppColor.lightDark,
     },
-
+    errorText: {
+        color: AppColor.red,
+        fontFamily: "Roboto-Light",
+        fontWeight: "400",
+        paddingHorizontal: 25,
+        marginTop: 5,
+    },
 
 })
 export default SignInScreen;

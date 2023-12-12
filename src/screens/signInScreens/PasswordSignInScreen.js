@@ -6,9 +6,17 @@ import TextComponents from '../../components/TextComponent'
 import AppColor from '../../theme/AppColor'
 import { AppRoutes } from '../../routes/AppRoutes'
 import { useNavigation } from '@react-navigation/native'
+import { Formik } from 'formik'
+import { passwordValidationSchema } from '../../validation/validation'
 
 const PasswordSignInScreen = () => {
   const navigation = useNavigation()
+
+  const handlePassword = () => {
+
+    navigation.navigate(AppRoutes.bottomTabs)
+  }
+
   return (
     <View style={{
       backgroundColor: AppColor.dark,
@@ -20,21 +28,44 @@ const PasswordSignInScreen = () => {
       }}>
         <Text style={styles.textstyle} >{AppStrings.signin}</Text>
       </View>
-      <View style={styles.container}>
-        <TextComponents
-          style={styles.emailText}
-          placeholder={AppStrings.password}
-          secureTextEntry={true}
-        />
-      </View>
-      <View>
-        <ButtonComponent
-          style={styles.btnStyle}
-          text={AppStrings.continue}
-          btnLabelStyle={styles.btnText}
-          onPress={() => navigation.navigate(AppRoutes.homepage)}
-        />
-      </View>
+      <Formik
+        initialValues={{ password: "Admin123" }}
+        onSubmit={(values) => {
+          console.log(values)
+          const { password } = values
+          handlePassword(password)
+        }}
+        validationSchema={passwordValidationSchema}
+      >
+        {({ handleBlur, handleChange, handleSubmit, values, errors, touched }) => (
+          <>
+            <View style={styles.container}>
+              <TextComponents
+                style={styles.emailText}
+                placeholder={AppStrings.password}
+                secureTextEntry={true}
+                placeholderTextColor={styles.placeholderTextColor}
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
+              />
+            </View>
+            {(errors.password && touched.password) &&
+              <Text style={styles.errorText}>{errors.password}</Text>
+            }
+            <View>
+              <ButtonComponent
+                style={styles.btnStyle}
+                text={AppStrings.continue}
+                btnLabelStyle={styles.btnText}
+                onPress={handleSubmit}
+              />
+            </View>
+          </>
+        )}
+
+
+      </Formik>
       <View style={{
         paddingHorizontal: 24,
         paddingTop: 16,
@@ -56,7 +87,7 @@ const PasswordSignInScreen = () => {
             fontWeight: "400",
             letterSpacing: -0.400,
             fontSize: 12,
-            color:AppColor.white,
+            color: AppColor.white,
           }} >{AppStrings.reset}</Text>
         </TouchableOpacity>
       </View>
@@ -103,7 +134,15 @@ const styles = StyleSheet.create({
   },
   btnText: {
     paddingHorizontal: 55
-  }
+  },
+  errorText: {
+    color: AppColor.red,
+    fontFamily: "Roboto-Light",
+    fontWeight: "400",
+    paddingHorizontal: 25,
+    marginTop: 5,
+  },
+
 
 })
 

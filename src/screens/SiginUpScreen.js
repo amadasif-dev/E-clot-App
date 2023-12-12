@@ -7,13 +7,16 @@ import ButtonComponent from "../components/ButtonComponent";
 import { useNavigation } from "@react-navigation/native";
 import { AppRoutes } from "../routes/AppRoutes";
 import AppIcons from "../constants/AppIcon";
-
+import { Formik } from "formik";
+import { signUpValidationSchema } from "../validation/validation";
 
 const SiginUpScreen = () => {
     const navigation = useNavigation()
+
+    handleSignup = () => {
+        navigation.navigate(AppRoutes.signIn)
+    }
     return (
-
-
 
         <View style={{
             backgroundColor: AppColor.dark,
@@ -32,62 +35,97 @@ const SiginUpScreen = () => {
                             paddingHorizontal: 12,
                             top: 12
                         }}>
-
                             <AppIcons.icArrowleft2 />
                         </View>
                     </View>
                 </View>
             </TouchableOpacity>
             <View style={{
-                paddingTop: 123,
+                paddingTop: 60,
                 paddingHorizontal: 24,
             }}>
                 <Text style={styles.textstyle} >{AppStrings.createAccount}</Text>
             </View>
             <ScrollView>
+                <Formik
+                    initialValues={{ email: 'Johnwick4@gmail.com', password: 'Admin123@', fullName: 'John Wick', lastName: 'Khan 14' }}
+                    onSubmit={(values) => {
+                        console.log(values)
+                        const { fullName, lastName, email, password } = values
+                        handleSignup(fullName, lastName, email, password)
+                    }}
+                    validationSchema={signUpValidationSchema}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                        <>
+                            <View style={styles.container}>
+                                <TextComponents
+                                    style={styles.emailText}
+                                    placeholder={AppStrings.firstname}
+                                    secureTextEntry={false}
+                                    onChangeText={handleChange("fullName")}
+                                    onBlur={handleBlur("fullName")}
+                                    value={values.fullName}
+                                />
+                            </View>
+                            {(errors.email && touched.email) &&
+                                <Text style={styles.errorText}>{errors.fullName}</Text>
+                            }
+                            <View style={[styles.container, { marginTop: 16 }]}>
+                                <TextComponents
+                                    style={styles.emailText}
+                                    placeholder={AppStrings.lastName}
+                                    secureTextEntry={false}
+                                    onChangeText={handleChange("lastName")}
+                                    onBlur={handleBlur("lastName")}
+                                    value={values.lastName}
+                                />
+                            </View>
+                            {(errors.email && touched.email) &&
+                                <Text style={styles.errorText}>{errors.lastName}</Text>
+                            }
+                            <View style={[styles.container, { marginTop: 16 }]}>
+                                <TextComponents
+                                    style={styles.emailText}
+                                    placeholder={AppStrings.emailAddress}
+                                    keyboardType={"email-address"}
+                                    secureTextEntry={false}
+                                    onChangeText={handleChange("email")}
+                                    onBlur={handleBlur("email")}
+                                    value={values.email}
 
-
-                <View style={styles.container}>
-                    <TextComponents
-                        style={styles.emailText}
-                        placeholder={AppStrings.firstname}
-                        secureTextEntry={false}
-                    />
-                </View>
-                <View style={styles.container}>
-                    <TextComponents
-                        style={styles.emailText}
-                        placeholder={AppStrings.lastName}
-                        secureTextEntry={false}
-                    />
-                </View>
-                <View style={styles.container}>
-                    <TextComponents
-                        style={styles.emailText}
-                        placeholder={AppStrings.emailAddress}
-                        keyboardType={"email-address"}
-                        secureTextEntry={false}
-                    />
-                </View>
-                <View style={styles.container}>
-                    <TextComponents
-                        style={styles.emailText}
-                        placeholder={AppStrings.password}
-                        keyboardType={"email-address"}
-                        secureTextEntry={true}
-                    />
-                </View>
-                <View>
-                    <ButtonComponent
-                        style={styles.btnStyle}
-                        text={AppStrings.continue}
-                        btnLabelStyle={styles.btnText}
-                        onPress={() => navigation.navigate(AppRoutes.homepage)}
-                    />
-                </View>
+                                />
+                            </View>
+                            {(errors.email && touched.email) &&
+                                <Text style={styles.errorText}>{errors.email}</Text>
+                            }
+                            <View style={[styles.container, { marginTop: 16 }]}>
+                                <TextComponents
+                                    style={styles.emailText}
+                                    placeholder={AppStrings.password}
+                                    secureTextEntry={true}
+                                    onChangeText={handleChange("password")}
+                                    onBlur={handleBlur("password")}
+                                    value={values.password}
+                                />
+                            </View>
+                            {(errors.password && touched.password) &&
+                                <Text style={styles.errorText}>{errors.password}</Text>
+                            }
+                            <View style={{ marginTop: 40 }}>
+                                <ButtonComponent
+                                    style={styles.btnStyle}
+                                    text={AppStrings.continue}
+                                    btnLabelStyle={styles.btnText}
+                                    onPress={handleSubmit}
+                                />
+                            </View>
+                        </>
+                    )}
+                </Formik>
                 <View style={{
                     paddingHorizontal: 24,
-                    paddingTop: 16,
+                    paddingTop: 40,
                     flexDirection: "row",
 
                 }}>
@@ -106,7 +144,7 @@ const SiginUpScreen = () => {
                             fontWeight: "400",
                             letterSpacing: -0.400,
                             fontSize: 12,
-                            color:AppColor.white
+                            color: AppColor.white
                         }} >{AppStrings.reset}</Text>
                     </TouchableOpacity>
                 </View>
@@ -125,7 +163,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         position: "relative",
-        top:48,
+        top: 48,
         left: 27
     },
     textstyle: {
@@ -140,7 +178,7 @@ const styles = StyleSheet.create({
         letterSpacing: -0.400,
         fontSize: 16,
         paddingHorizontal: 15,
-        color:AppColor.white,
+        color: AppColor.white,
     },
     container: {
         borderRadius: 4,
@@ -167,7 +205,18 @@ const styles = StyleSheet.create({
     },
     btnText: {
         paddingHorizontal: 55
-    }
+    },
+    errorText: {
+        color: AppColor.red,
+    },
+    errorText: {
+        color: AppColor.red,
+        fontFamily: "Roboto-Light",
+        fontWeight: "400",
+        paddingHorizontal: 25,
+        marginTop: 5,
+    },
+
 
 })
 export default SiginUpScreen;
