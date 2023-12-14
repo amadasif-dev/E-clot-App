@@ -11,5 +11,7 @@ export const AppRoutes = {
     notification:"NotificationScreen",
     order:"OrderScreen",
     profile:"ProfilScreen",
-    bottomTabs:"bottomTabs"
+    bottomTabs:"bottomTabs",
+    stackTab:"StackTab",
+    address:"AddressScreen",
 }

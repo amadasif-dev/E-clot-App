@@ -25,6 +25,7 @@ import icActiveNotification from '../assets/icons/icActiveNotification.svg'
 import icProfileNoActive from "../assets/icons/icProfileNoActive.svg"
 import icActiveProfileTab from "../assets/icons/icActiveProfileTab.svg"
 import icOrderNoActice from '../assets/icons/icOrderNoActice.svg'
+import icArrowright from "../assets/icons/icArrowright.svg"
 
 const AppIcons = {
     icApple,
@@ -54,5 +55,6 @@ const AppIcons = {
     icProfileNoActive,
     icActiveProfileTab,
     icOrderNoActice,
+    icArrowright,
 };
 export default AppIcons;

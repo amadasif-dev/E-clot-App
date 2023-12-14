@@ -5,9 +5,10 @@ import { AppRoutes } from "../routes/AppRoutes";
 import HomePageScreen from "../screens/HomeScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import OrderScreen from "../screens/OrderScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import ProfileScreen from "../screens/profileScreens/ProfileScreen";
 import AppColor from "../theme/AppColor";
 import AppIcons from "../constants/AppIcon";
+import StackNavigation from "./StackNavigate";
 
 const Bottom = createBottomTabNavigator()
 
@@ -21,7 +22,7 @@ const BottomNavigation = () => {
                 tabBarActiveTintColor: AppColor.dark,
                 tabBarInactiveTintColor: AppColor.primary,
                 tabBarStyle: [styles.tabBarStyle],
-                tabBarShowLabel:false
+                tabBarShowLabel: false
             }}
 
         >
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
         backgroundColor: AppColor.dark,
         paddingTop: Platform.OS === 'android' ? 2 : 0,
         height: Platform.OS === 'android' ? 70 : 90,
-        justifyContent:"space-between"
+        justifyContent: "space-between"
     },
 });
 export default BottomNavigation;

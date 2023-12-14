@@ -9,6 +9,7 @@ import { AppRoutes } from "../routes/AppRoutes";
 import AppIcons from "../constants/AppIcon";
 import { Formik } from "formik";
 import { signUpValidationSchema } from "../validation/validation";
+import BackButtonScreenComponent from "../components/BackButtonScreenComponent";
 
 const SiginUpScreen = () => {
     const navigation = useNavigation()
@@ -22,24 +23,10 @@ const SiginUpScreen = () => {
             backgroundColor: AppColor.dark,
             flex: 1,
         }}>
-            <TouchableOpacity
-                onPress={() => navigation.goBack()}
-            >
-                <View style={styles.circle}>
-                    <View style={{
-                        justifyContent: "center",
-                        alignItems: 'center',
-                        position: "absolute"
-                    }}>
-                        <View style={{
-                            paddingHorizontal: 12,
-                            top: 12
-                        }}>
-                            <AppIcons.icArrowleft2 />
-                        </View>
-                    </View>
-                </View>
-            </TouchableOpacity>
+            <View style={{marginTop:20,marginLeft:24}}>
+
+                <BackButtonScreenComponent />
+            </View>
             <View style={{
                 paddingTop: 60,
                 paddingHorizontal: 24,

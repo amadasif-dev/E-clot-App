@@ -123,8 +123,6 @@ const HomePageScreen = () => {
                 </View>
             </View>
             <ScrollView>
-
-
                 <CategoriesComponents />
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", }}>
                     <Text style={[styles.textStyle, { paddingTop: 24 }]}>
