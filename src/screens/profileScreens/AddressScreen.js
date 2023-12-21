@@ -5,8 +5,11 @@ import AppIcons from '../../constants/AppIcon'
 import BackButtonScreenComponent from '../../components/BackButtonScreenComponent'
 import AppStrings from '../../constants/AppString'
 import CardComponent from '../../components/CardComponent'
+import { useNavigation } from '@react-navigation/native'
+import { AppRoutes } from '../../routes/AppRoutes'
 
 const AddressScreen = () => {
+  const navigation=useNavigation()
   return (
     <View style={{ flex: 1, backgroundColor: AppColor.dark }}>
       <View style={{
@@ -31,6 +34,7 @@ const AddressScreen = () => {
           style={styles.cardstyle}
           lableStyle={styles.lableStyle}
           lineNumber={1}
+          onPress={()=>navigation.navigate(AppRoutes.addressTextScreen)}
         />
       </View>
       <View style={{ marginLeft: 24, marginRight: 24, marginTop: 12 }}>
@@ -39,7 +43,8 @@ const AddressScreen = () => {
           editText={"Edit"}
           style={styles.cardstyle}
           lableStyle={styles.lableStyle}
-          lineNumber={1}
+          lineNumber={2}
+
         />
       </View>
     </View>

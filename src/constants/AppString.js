@@ -65,7 +65,9 @@ const AppStrings = {
     help:"Help",
     support:"Support",
     signOut:"Sign Out",
-    address:"2715 Ash Dr. San Jose, South Dakota 83475"
+    address:"2715 Ash Dr. San Jose, South Dakota 83475",
+    streetAddress:"Street Address",
+    ShopCategories:"Shop by Categories"
 
 
 }

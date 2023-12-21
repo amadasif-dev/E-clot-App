@@ -3,12 +3,12 @@ import { View, TextInput, StyleSheet } from "react-native";
 import AppColor from '../theme/AppColor';
 import AppIcons from '../constants/AppIcon';
 const TextComponents = props => {
-    const { placeholder,style, obscure, onChangeText, onBlur, value, keyboardType,secureTextEntry,icon } = props;
+    const { placeholder,style, obscure, onChangeText, onBlur, value, keyboardType,secureTextEntry,icon,placeholderTextColor } = props;
     return (
         <View>
             <TextInput
                 placeholder={placeholder}
-                placeholderTextColor={AppColor.white}
+                placeholderTextColor={placeholderTextColor}
                 style={style}
                 obscure={obscure}
                 onChangeText={onChangeText}

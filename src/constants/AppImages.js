@@ -13,4 +13,5 @@ export default AppImages = {
     imgWomwnHoddies: require("../assets/images/womwnHoddies.png"),
     imgYellowHoddei: require("../assets/images/yellowHoddei.png"),
     
+    
 }

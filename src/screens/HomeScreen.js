@@ -11,9 +11,11 @@ import ProductListing from "../json/ProductListingJson";
 import CustomModal from "../components/ModalComponent";
 import ButtonComponent from "../components/ButtonComponent";
 import { AppRoutes } from "../routes/AppRoutes";
+import { useNavigation } from "@react-navigation/native";
 
 
 const HomePageScreen = () => {
+    const navigation = useNavigation()
     const [isAlertVisible, setAlertVisible] = useState(false);
     const openModal = () => {
         setAlertVisible(true);
@@ -115,14 +117,22 @@ const HomePageScreen = () => {
                 <Text style={[styles.textStyle]}>
                     {AppStrings.Categories}
                 </Text>
-                <View>
-                    <Text style={[styles.textStyle, { fontWeight: "400" }]}>
-                        {AppStrings.SeeAll}
-                    </Text>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate(AppRoutes.seeAll)}
+                >
+                    <View>
+                        <Text style={[styles.textStyle, { fontWeight: "400" }]}>
+                            {AppStrings.SeeAll}
+                        </Text>
 
-                </View>
+                    </View>
+                </TouchableOpacity>
+
             </View>
-            <ScrollView>
+            <ScrollView
+                overScrollMode='never'
+
+            >
                 <CategoriesComponents />
                 <View style={{ flexDirection: 'row', justifyContent: "space-between", }}>
                     <Text style={[styles.textStyle, { paddingTop: 24 }]}>
@@ -136,20 +146,22 @@ const HomePageScreen = () => {
                 </View>
 
                 <FlatList
+                    overScrollMode='never'
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingHorizontal: 12, paddingTop: 16 }}
+                    contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 16 }}
                     data={ProductListing}
                     renderItem={({ item }) => {
                         return (
 
                             <View style={{ paddingHorizontal: 13 }}>
                                 <ItemsComponents
-                                     key={item.id ? item.id.toString() : Math.random().toString()}
+                                    key={item.id ? item.id.toString() : Math.random().toString()}
                                     img={item?.productImage}
                                     text={item?.productName}
                                     icon={AppIcons.icApple}
                                     priceText={item?.productPrice}
+                                    numberOfLines={1}
                                     item={item}
                                 />
                             </View>

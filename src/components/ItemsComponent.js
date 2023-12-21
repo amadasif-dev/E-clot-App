@@ -9,7 +9,7 @@ import { AppRoutes } from "../routes/AppRoutes";
 
 const ItemsComponents = props => {
     const navigation = useNavigation();
-    const { img, text, priceText, onPress, item } = props
+    const { img, text, priceText, onPress, item,numberOfLines } = props
     return (
         <View style={styles.container}>
             <View style={{
@@ -31,7 +31,7 @@ const ItemsComponents = props => {
                 onPress={() => navigation.navigate(AppRoutes.detail, { item: item })}
             >
                 <View style={styles.textStyle}>
-                    <Text numberOfLines={1} style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
+                    <Text numberOfLines={numberOfLines} style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
                 </View>
                 <View style={{ paddingVertical: 12 }}>
                     <Text style={[styles.textStyle, { paddingTop: 1 }]}>

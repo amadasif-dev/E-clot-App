@@ -10,18 +10,15 @@ const CategoriesComponents = () => {
             <View style={{
                 paddingTop: 16,
                 left: 13
-
             }}  >
-                <TouchableOpacity>
-                    <AppIcons.icHoddies />
+               <AppIcons.icHoddies />
                     <Text
                         style={[styles.textStyle,
                         {
-                            paddingHorizontal: 5, paddingTop: 5,
+                            paddingTop: 5,
                             fontWeight: "400",
                         }]}
                     >{AppStrings.Hoodies}</Text>
-                </TouchableOpacity>
 
             </View>
             <View style={{
@@ -29,9 +26,7 @@ const CategoriesComponents = () => {
                 left: 13.5
 
             }}  >
-                <TouchableOpacity>
-
-                    <AppIcons.icShort />
+               <AppIcons.icShort />
                     <Text
                         style={[styles.textStyle,
                         {
@@ -39,33 +34,27 @@ const CategoriesComponents = () => {
                             fontWeight: "400",
                         }]}
                     >{AppStrings.shorts}</Text>
-                </TouchableOpacity>
             </View>
             <View style={{
                 paddingTop: 16,
                 left: 13
 
             }}  >
-                <TouchableOpacity>
-
-                    <AppIcons.icShoes />
+                 <AppIcons.icShoes />
                     <Text
                         style={[styles.textStyle,
                         {
-                            paddingHorizontal: 10, paddingTop: 5,
+                            paddingHorizontal: 8, paddingTop: 5,
                             fontWeight: "400",
                         }]}
                     >{AppStrings.shoes}</Text>
-                </TouchableOpacity>
             </View>
             <View style={{
                 paddingTop: 16,
                 left: 13
 
             }}  >
-                <TouchableOpacity>
-
-                    <AppIcons.icBag2 />
+               <AppIcons.icBag2 />
                     <Text
                         style={[styles.textStyle,
                         {
@@ -73,25 +62,21 @@ const CategoriesComponents = () => {
                             fontWeight: "400",
                         }]}
                     >{AppStrings.bag}</Text>
-                </TouchableOpacity>
             </View>
             <View style={{
                 paddingTop: 16,
                 left: 13
 
             }}  >
-                <TouchableOpacity>
-
-                    <AppIcons.icAccessories />
+                <AppIcons.icAccessories />
                     <Text
                         style={[styles.textStyle,
                         {
                             paddingTop: 5,
                             fontWeight: "400",
-                            right: 10
+                            right: 12
                         }]}
                     >{AppStrings.accessories}</Text>
-                </TouchableOpacity>
             </View>
 
         </View>

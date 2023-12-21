@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { AppRoutes } from "../routes/AppRoutes";
 import HomePageScreen from "../screens/HomeScreen";
-import NotificationScreen from "../screens/NotificationScreen";
+import NotificationScreen from "../screens/notification/NotificationScreen";
 import OrderScreen from "../screens/OrderScreen";
 import ProfileScreen from "../screens/profileScreens/ProfileScreen";
 import AppColor from "../theme/AppColor";

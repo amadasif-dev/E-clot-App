@@ -10,6 +10,9 @@ import PasswordSignInScreen from "../screens/signInScreens/PasswordSignInScreen"
 import SiginUpScreen from "../screens/SiginUpScreen";
 import BottomNavigation from "./BottomNavigation";
 import AddressScreen from "../screens/profileScreens/AddressScreen";
+import AddressTextScreen from "../screens/profileScreens/AddressTextScreen";
+import SeeAllItems from "../screens/categories/SeeAllItems";
+import HoodiesScreen from "../screens/categories/HoodiesScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +30,10 @@ const StackNavigation = () => {
             <Stack.Screen name={AppRoutes.password} component={PasswordSignInScreen} />
             <Stack.Screen name={AppRoutes.createAccount} component={SiginUpScreen} />
             <Stack.Screen name={AppRoutes.address} component={AddressScreen} />
+            <Stack.Screen name={AppRoutes.addressTextScreen} component={AddressTextScreen} />
+            <Stack.Screen name={AppRoutes.seeAll} component={SeeAllItems} />
+            <Stack.Screen name={AppRoutes.hoodiesScreen} component={HoodiesScreen} />
+
         </Stack.Navigator>
     )
 }

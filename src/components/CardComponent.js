@@ -5,23 +5,30 @@ import AppStrings from '../constants/AppString'
 import AppIcons from '../constants/AppIcon'
 
 const CardComponent = props => {
-    const { text, title, icon, date, editText, style, lableStyle, onPress, lineNumber, editTextStyle } = props
+    const { text, title, icon, date,
+        editText, style, lableStyle,
+        onPress, lineNumber, editTextStyle,
+        viewStyle, iconStyle, disabled } = props
     return (
         <View style={[styles.container, style && { ...style }]}>
             {title && <Text style={styles.txtStyle}>{title}</Text>}
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+
+            <View style={[styles.viewStyle, viewStyle && { ...viewStyle }]}>
                 {text && <Text numberOfLines={lineNumber}
 
                     style={[styles.txtStyle,
-                    lableStyle && { ...lableStyle }]}>{text}
-                </Text>}
+                    lableStyle && { ...lableStyle }]}>{text}</Text>}
+
                 <TouchableOpacity
+                    disabled={disabled}
                     onPress={onPress}
                     style={styles.txtStyle}
                 >
                     {editText && <Text style={[styles.editClick, editTextStyle && { ...editTextStyle }]}>
                         {editText}</Text>}
-                    {icon && <props.icon />}
+                    {icon && <props.icon
+                        style={[styles.iconStyle, iconStyle && { ...iconStyle }]}
+                    />}
                 </TouchableOpacity>
             </View>
             <View>
@@ -49,15 +56,18 @@ const styles = StyleSheet.create({
         color: AppColor.white,
         fontFamily: "Roboto-Bold",
         paddingHorizontal: 16,
-        marginTop: 8,
-        alignItems:"center",
+        marginTop: 7,
     },
     editClick: {
         color: AppColor.primary,
         marginRight: 12,
         fontFamily: "Roboto-Bold",
         fontSize: 16,
-    }
+    },
+    viewStyle: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
 
 
 })
