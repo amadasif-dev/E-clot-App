@@ -137,13 +137,14 @@ const styles = StyleSheet.create({
     },
     lableStyle: {
         marginTop: 25,
-        left: 16,
+        left: 18,
     },
     cardStyle: {
         height: 80,
     },
     iconStyle: {
         marginTop: 5,
+        right:48,
     },
 })
 

@@ -30,7 +30,7 @@ const AppStrings = {
     hoodies240: "Hoodies (240)",
     noNotification: "No Notification yet",
     exploreCategories: "Explore Categories",
-    notiText: "Gilbert, you placed and order check your order history for full details",
+    notiText: "Gilbert, you placed and order check your \n order history for full details",
     thankYou: "Gilbert, Thank you for shopping with us we have canceled order #24568.",
     orderText: "Gilbert, your Order #24568 has been  confirmed check  your order history for full details",
     ordersTitle: "Orders",
@@ -67,7 +67,8 @@ const AppStrings = {
     signOut:"Sign Out",
     address:"2715 Ash Dr. San Jose, South Dakota 83475",
     streetAddress:"Street Address",
-    ShopCategories:"Shop by Categories"
+    ShopCategories:"Shop by Categories",
+    notification:"Notification"
 
 
 }

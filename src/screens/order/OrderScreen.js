@@ -1,40 +1,42 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import AppColor from '../../theme/AppColor'
 import AppStrings from '../../constants/AppString'
+import AppIcons from '../../constants/AppIcon'
 import ButtonComponent from '../../components/ButtonComponent'
 import { useNavigation } from '@react-navigation/native'
-import AppColor from '../../theme/AppColor'
-import AppIcons from '../../constants/AppIcon'
 import { AppRoutes } from '../../routes/AppRoutes'
 
-const NotificationScreen = () => {
-  const navigation=useNavigation()
+const OrderScreen = () => {
+const navigation=useNavigation()
   return (
-    <View style={{ flex: 1, backgroundColor: AppColor.dark, }}>
+    <View style={{
+      flex: 1,
+      backgroundColor: AppColor.dark
+    }}>
       <View style={{
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 20
       }}>
-        <Text style={styles.txtStyle}>{AppStrings.notification}</Text>
+        <Text style={styles.txtStyle}>{AppStrings.ordersTitle}</Text>
       </View>
-
       <View style={{
-        justifyContent: "center",
         alignItems: "center",
-        marginTop:204
+        marginTop: "48%",
       }}>
-        <AppIcons.icBell />
+        <View>
+          <AppIcons.icOrder />
+        </View>
         <View style={{ marginTop: 24 }}>
-          <Text style={[styles.txtStyle, { fontSize: 24 }]}>
-            {AppStrings.noNotification}</Text>
+          <Text style={[styles.txtStyle, { fontSize: 24 }]}>{AppStrings.noOrdersyet}</Text>
         </View>
         <View style={{ marginTop: 24 }}>
           <ButtonComponent
             style={styles.btnStyle}
             text={AppStrings.exploreCategories}
             btnLabelStyle={styles.btnText}
-            onPress={()=>navigation.navigate(AppRoutes.exploreNotification)}
-           
+            onPress={() => navigation.navigate(AppRoutes.exploreNotification)}
+
           />
         </View>
       </View>
@@ -47,7 +49,12 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     color: AppColor.white,
     fontWeight: "700",
-
+  },
+  txtStyle: {
+    fontSize: 16,
+    fontFamily: "Roboto-Bold",
+    color: AppColor.white,
+    fontWeight: "700",
   },
   btnStyle: {
     width: 185,
@@ -57,8 +64,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: "center",
     alignItems: "center",
+    
 
   },
   
+
 })
-export default NotificationScreen
+
+export default OrderScreen

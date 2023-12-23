@@ -3,12 +3,12 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { AppRoutes } from "../routes/AppRoutes";
 import HomePageScreen from "../screens/HomeScreen";
-import NotificationScreen from "../screens/notification/NotificationScreen";
-import OrderScreen from "../screens/OrderScreen";
+import OrderScreen from "../screens/order/OrderScreen";
 import ProfileScreen from "../screens/profileScreens/ProfileScreen";
-import AppColor from "../theme/AppColor";
 import AppIcons from "../constants/AppIcon";
 import StackNavigation from "./StackNavigate";
+import NotificationScreen from "../screens/notification/NotificationScreen";
+import AppColor from "../theme/AppColor";
 
 const Bottom = createBottomTabNavigator()
 

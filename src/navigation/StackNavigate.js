@@ -13,6 +13,7 @@ import AddressScreen from "../screens/profileScreens/AddressScreen";
 import AddressTextScreen from "../screens/profileScreens/AddressTextScreen";
 import SeeAllItems from "../screens/categories/SeeAllItems";
 import HoodiesScreen from "../screens/categories/HoodiesScreen";
+import ExploreNotification from "../screens/notification/ExploreNotification";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,7 @@ const StackNavigation = () => {
             <Stack.Screen name={AppRoutes.addressTextScreen} component={AddressTextScreen} />
             <Stack.Screen name={AppRoutes.seeAll} component={SeeAllItems} />
             <Stack.Screen name={AppRoutes.hoodiesScreen} component={HoodiesScreen} />
+            <Stack.Screen name={AppRoutes.exploreNotification} component={ExploreNotification}/>
 
         </Stack.Navigator>
     )

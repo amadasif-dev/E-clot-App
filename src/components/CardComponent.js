@@ -18,18 +18,20 @@ const CardComponent = props => {
 
                     style={[styles.txtStyle,
                     lableStyle && { ...lableStyle }]}>{text}</Text>}
+                <View style={{right:44}}>
+                    <TouchableOpacity
+                        disabled={disabled}
+                        onPress={onPress}
+                        style={styles.txtStyle}
+                    >
+                        {editText && <Text style={[styles.editClick, editTextStyle && { ...editTextStyle }]}>
+                            {editText}</Text>}
+                        {icon && <props.icon
+                            style={[styles.iconStyle, iconStyle && { ...iconStyle }]}
+                        />}
+                    </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity
-                    disabled={disabled}
-                    onPress={onPress}
-                    style={styles.txtStyle}
-                >
-                    {editText && <Text style={[styles.editClick, editTextStyle && { ...editTextStyle }]}>
-                        {editText}</Text>}
-                    {icon && <props.icon
-                        style={[styles.iconStyle, iconStyle && { ...iconStyle }]}
-                    />}
-                </TouchableOpacity>
             </View>
             <View>
                 {date && <Text style={[styles.txtStyle,

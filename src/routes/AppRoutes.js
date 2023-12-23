@@ -17,5 +17,6 @@ export const AppRoutes = {
     addressTextScreen: "AddressTextScreen",
     seeAll: "SeeAllItems",
     hoodiesScreen:"HoodieScreen",
-    exploreNotification:"ExploreNotification"
+    exploreNotification:"ExploreNotification",
+    exploreOrder:"ExploreOrder",
 }
