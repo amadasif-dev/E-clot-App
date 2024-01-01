@@ -68,7 +68,14 @@ const AppStrings = {
     address:"2715 Ash Dr. San Jose, South Dakota 83475",
     streetAddress:"Street Address",
     ShopCategories:"Shop by Categories",
-    notification:"Notification"
+    notification:"Notification",
+    order:"Order",
+    processing:"Processing",
+    shipped:"Shipped",
+    delivered:"Delivered",
+    returned:"Returned",
+    cancel:"Cancel",
+    OrderNo:"Order  #456765"
 
 
 }
