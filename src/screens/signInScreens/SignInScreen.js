@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
         letterSpacing: -0.400,
         fontSize: 16,
         paddingHorizontal: 15,
+        color:AppColor.white,
     },
     container: {
         borderRadius: 4,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     btnText: {
-        paddingHorizontal: 55
+        paddingHorizontal: 55,
     },
     placeholderTextColor: {
         color: AppColor.lightDark,

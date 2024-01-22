@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.400,
     fontSize: 16,
     paddingHorizontal: 15,
+    color:AppColor.white,
   },
   container: {
     borderRadius: 4,

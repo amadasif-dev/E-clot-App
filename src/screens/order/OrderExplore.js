@@ -67,11 +67,11 @@ const OrderExplore = () => {
           key={({item, index}) => item.id}
         />
       </View>
-      <View style={{marginRight: 24, marginLeft: 24}}>
+      <View style={{marginRight: 24, marginLeft: 24, marginTop:24}}>
         <OrderCradComponetns
           leadingIcon={AppIcons.icOrderNoActice}
           title={AppStrings.OrderNo}
-          subTilte={'2 itmes'}
+          subTitle={'2 itmes'}
           trailingIcon={AppIcons.icArrowright}
         />
       </View>
