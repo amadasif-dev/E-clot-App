@@ -1,8 +1,8 @@
 import {LIGHT_THEME_SELECTE} from '../Constants/ActionConstants';
 
-export function ChangeThemeAction(lightTheme) {
+export function ChangeThemeAction(theme) {
   return {
     type: LIGHT_THEME_SELECTE,
-    payLoad: lightTheme,
+    payload: theme,
   };
 }

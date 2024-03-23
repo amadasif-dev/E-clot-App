@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     editClick: {
         color: AppColor.primary,
-        marginRight: 12,
+        marginLeft:50 ,
         fontFamily: "Roboto-Bold",
         fontSize: 16,
     },
