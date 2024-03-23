@@ -8,7 +8,6 @@ import {
   FlatList,
 } from 'react-native';
 import AppIcons from '../constants/AppIcon';
-import ButtonComponents from '../components/ButtonComponent';
 import AppColor from '../theme/AppColor';
 import AppStrings from '../constants/AppString';
 import TextComponents from '../components/TextComponent';

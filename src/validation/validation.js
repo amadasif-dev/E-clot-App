@@ -16,10 +16,10 @@ export const passwordValidationSchema = yup.object().shape({
 })
 
 export const signUpValidationSchema = yup.object().shape({
-  fullName: yup
+  firstName: yup
     .string()
-    .matches(/(\w.+\s).+/, 'Enter at least 2 names')
-    .required('Full name is required'),
+    .matches(/(\w.+\s).+/, 'Enter at least 1 names')
+    .required('First Name is required'),
   lastName: yup
     .string()
     .matches(/(\w.+\s).+/, 'Enter at least 1 names')
