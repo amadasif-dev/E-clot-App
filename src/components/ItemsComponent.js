@@ -9,14 +9,16 @@ import { AppRoutes } from "../routes/AppRoutes";
 
 const ItemsComponents = props => {
     const navigation = useNavigation();
-    const { img, text, priceText, onPress, item,numberOfLines } = props
+    const { img, text, priceText, onPress, item,numberOfLines,imgStyle } = props
     return (
         <View style={styles.container}>
             <View style={{
                 flexDirection: "row-reverse",
                 position: "relative"
             }}>
-                <Image source={img} />
+                <Image source={img}
+                style={[imgStyle,{...imgStyle}]}
+                />
                 <View style={{
                     position: "absolute",
                     paddingTop: 9,
@@ -35,7 +37,7 @@ const ItemsComponents = props => {
                 </View>
                 <View style={{ paddingVertical: 12 }}>
                     <Text style={[styles.textStyle, { paddingTop: 1 }]}>
-                        {priceText}
+                       Rs# {priceText}
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -59,7 +61,9 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingHorizontal: 5,
         color: AppColor.white,
-        maxWidth: 100
+        maxWidth: 100,
+        fontFamily: 'Roboto-Light',
+        fontWeight: '400',
     },
 
 })

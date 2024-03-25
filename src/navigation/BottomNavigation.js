@@ -23,7 +23,7 @@ const BottomNavigation = () => {
         inactiveTintColor: AppColor.primary,
         tabBarActiveTintColor: AppColor.dark,
         tabBarInactiveTintColor:
-          Theme.theme === 'dark' ? AppColor.dark : AppColor.primary,
+          Theme.theme === 'light' ? AppColor.dark : AppColor.primary,
         tabBarStyle: [
           styles.tabBarStyle,
           {
@@ -40,9 +40,11 @@ const BottomNavigation = () => {
           headerShown: false,
           tabBarIcon: ({focused, color, size}) =>
             focused ? (
-              <AppIcons.icHome style={{color: color}} />
+              <AppIcons.icHome
+                style={{color: color}}
+              />
             ) : (
-              <AppIcons.icHomeActive style={{color: AppColor.darkPurple}} />
+              <AppIcons.icHomeActive style={{color: AppColor.primary}} />
             ),
         }}
       />
@@ -56,7 +58,7 @@ const BottomNavigation = () => {
               <AppIcons.icActiveNotification style={{color: color}} />
             ) : (
               <AppIcons.icNotificationbing
-                style={{color: AppColor.darkPurple}}
+                style={{color: AppColor.primary}}
               />
             ),
         }}
@@ -70,7 +72,7 @@ const BottomNavigation = () => {
             focused ? (
               <AppIcons.icOrderActive style={{color: color}} />
             ) : (
-              <AppIcons.icOrderNoActice style={{color: AppColor.darkPurple}} />
+              <AppIcons.icOrderNoActice style={{color: AppColor.primary}} />
             ),
         }}
       />
@@ -84,7 +86,7 @@ const BottomNavigation = () => {
               <AppIcons.icActiveProfileTab style={{color: color}} />
             ) : (
               <AppIcons.icProfileNoActive
-                style={{color: AppColor.darkPurple}}
+                style={{color: AppColor.primary}}
               />
             ),
         }}
