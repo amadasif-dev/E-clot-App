@@ -7,7 +7,7 @@ import CardComponent from '../../components/CardComponent';
 import AppIcons from '../../constants/AppIcon';
 import {useNavigation} from '@react-navigation/native';
 import {AppRoutes} from '../../routes/AppRoutes';
-import {getProductShoes} from '../../axiosServices/productCategories/ProductCategoriesData';
+import {getProductListing} from '../../axiosServices/productCategories/ProductCategoriesData';
 
 const SeeAllItems = () => {
   const navigation = useNavigation();
@@ -51,7 +51,13 @@ const SeeAllItems = () => {
           marginRight: 24,
           marginTop: 8,
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(AppRoutes.productListing, {
+              endPoint: '/sunglasses',
+              title: AppStrings.accessories,
+            })
+          }>
           <CardComponent
             text={AppStrings.accessories}
             icon={AppIcons.icAccessories}
@@ -69,7 +75,13 @@ const SeeAllItems = () => {
           marginRight: 24,
           marginTop: 8,
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(AppRoutes.productListing, {
+              endPoint: '/mens-shirts',
+              title: AppStrings.shorts,
+            })
+          }>
           <CardComponent
             text={AppStrings.shorts}
             icon={AppIcons.icShort}
@@ -87,7 +99,13 @@ const SeeAllItems = () => {
           marginRight: 24,
           marginTop: 8,
         }}>
-        <TouchableOpacity onPress={()=>navigation.navigate(AppRoutes.shoesScreen)}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(AppRoutes.productListing, {
+              endPoint: '/mens-shoes',
+              title: AppStrings.shoes,
+            })
+          }>
           <CardComponent
             text={AppStrings.shoes}
             icon={AppIcons.icShoes}
@@ -105,7 +123,36 @@ const SeeAllItems = () => {
           marginRight: 24,
           marginTop: 8,
         }}>
-        <TouchableOpacity onPress={()=>navigation.navigate(AppRoutes.bagScreen)}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(AppRoutes.productListing, {
+              endPoint: '/womens-shoes',
+              title: AppStrings.womenShoes,
+            })
+          }>
+          <CardComponent
+            text={AppStrings.womenShoes}
+            icon={AppIcons.icShoes}
+            viewStyle={styles.viewStyle}
+            lableStyle={styles.lableStyle}
+            style={styles.cardStyle}
+            iconStyle={styles.iconStyle}
+            disabled={true}
+          />
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          marginLeft: 24,
+          marginRight: 24,
+          marginTop: 8,
+        }}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(AppRoutes.productListing, {
+              endPoint: '/womens-bags',
+            })
+          }>
           <CardComponent
             text={AppStrings.bag}
             icon={AppIcons.icBag2}
@@ -124,6 +171,7 @@ const styles = StyleSheet.create({
   txtStyle: {
     fontSize: 16,
     fontFamily: 'Roboto-Bold',
+    fontWeight: '600',
     color: AppColor.white,
   },
   cardstyle: {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -18,10 +18,17 @@ import CustomModal from '../components/ModalComponent';
 import ButtonComponent from '../components/ButtonComponent';
 import {AppRoutes} from '../routes/AppRoutes';
 import {useNavigation} from '@react-navigation/native';
+import {getProductListing} from '../axiosServices/productCategories/ProductCategoriesData';
+import {MaterialIndicator} from 'react-native-indicators';
 
-const HomePageScreen = () => {
+const HomePageScreen = props => {
   const navigation = useNavigation();
+  // const {endPoint} = props?.route?.params;
+  console.log(props);
   const [isAlertVisible, setAlertVisible] = useState(false);
+  const [isData, setIsData] = useState({data: []});
+  const [isLoading, setIsloading] = useState(false);
+
   const openModal = () => {
     setAlertVisible(true);
   };
@@ -30,6 +37,26 @@ const HomePageScreen = () => {
     setAlertVisible(false);
   };
 
+  const getData = async () => {
+    try {
+      setIsloading(true);
+      const menShoseData = await getProductListing('/mens-shoes');
+      const womwnShoseData = await getProductListing('/womens-shoes');
+      const allDataMarge = [
+        ...menShoseData.products,
+        ...womwnShoseData.products,
+      ];
+      setIsData(allDataMarge);
+      setIsloading(false);
+      console.log(isData);
+    } catch (error) {
+      console.log('error: ', error);
+      setIsloading(false);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: AppColor.dark}}>
       <View style={styles.conatiner}>
@@ -48,10 +75,10 @@ const HomePageScreen = () => {
                 paddingHorizontal: 12,
                 top: 12,
               }}>
-              <TouchableOpacity onPress={openModal}>
+              <TouchableOpacity>
                 <AppIcons.icBag />
               </TouchableOpacity>
-              <CustomModal isVisible={isAlertVisible} onClose={closeModal}>
+              {/* <CustomModal isVisible={isAlertVisible} onClose={closeModal}>
                 <View style={styles.container}>
                   <TextComponents
                     style={styles.emailText}
@@ -87,7 +114,7 @@ const HomePageScreen = () => {
                     btnLabelStyle={styles.btnText}
                   />
                 </View>
-              </CustomModal>
+              </CustomModal> */}
             </View>
           </View>
         </View>
@@ -120,7 +147,7 @@ const HomePageScreen = () => {
           justifyContent: 'space-between',
           paddingTop: 24,
         }}>
-        <Text style={[styles.textStyle]}>{AppStrings.Categories}</Text>
+        <Text style={[styles.textStyle, {}]}>{AppStrings.Categories}</Text>
         <TouchableOpacity onPress={() => navigation.navigate(AppRoutes.seeAll)}>
           <View>
             <Text style={[styles.textStyle, {fontWeight: '400'}]}>
@@ -129,36 +156,35 @@ const HomePageScreen = () => {
           </View>
         </TouchableOpacity>
       </View>
-      <ScrollView overScrollMode="never">
-        <CategoriesComponents />
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={[styles.textStyle, {paddingTop: 24}]}>
-            {AppStrings.topSelling}
+      <CategoriesComponents />
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <Text style={[styles.textStyle, {paddingTop: 24}]}>
+          {AppStrings.topSelling}
+        </Text>
+        <View>
+          <Text style={[styles.textStyle, {fontWeight: '400', paddingTop: 24}]}>
+            {AppStrings.SeeAll}
           </Text>
-          <View>
-            <Text
-              style={[styles.textStyle, {fontWeight: '400', paddingTop: 24}]}>
-              {AppStrings.SeeAll}
-            </Text>
-          </View>
         </View>
+      </View>
 
+      <ScrollView overScrollMode="never">
         <FlatList
           overScrollMode="never"
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingHorizontal: 15, paddingTop: 16}}
+          contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}
           data={ProductListing}
           renderItem={({item}) => {
             return (
-              <View style={{paddingHorizontal: 13}}>
+              <View style={{paddingLeft: 15}}>
                 <ItemsComponents
                   key={item.id ? item.id.toString() : Math.random().toString()}
                   img={item?.productImage}
                   text={item?.productName}
                   icon={AppIcons.icApple}
                   priceText={item?.productPrice}
-                  numberOfLines={1}
+                  numberOfLines={2}
                   item={item}
                 />
               </View>
@@ -168,6 +194,70 @@ const HomePageScreen = () => {
             item.id ? item.id.toString() : Math.random().toString()
           }
         />
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text
+            style={[
+              styles.textStyle,
+              {paddingTop: 24, color: AppColor.primary},
+            ]}>
+            {AppStrings.newIn}
+          </Text>
+          <View>
+            <Text style={[styles.textStyle, {paddingTop: 24}]}>
+              {AppStrings.SeeAll}
+            </Text>
+          </View>
+        </View>
+        <View>
+          {isLoading ? (
+            <MaterialIndicator
+              animating={true}
+              style={{marginVertical: 10}}
+              size={30}
+              color={AppColor.primary}
+            />
+          ) : (
+            <View>
+              <FlatList
+                contentContainerStyle={{
+                  marginVertical: 16,
+                  marginHorizontal: 8,
+                  paddingBottom: '5%',
+                }}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                overScrollMode="never"
+                data={isData}
+                renderItem={({item}) => (
+                  <View
+                    style={{
+                      flex: 1,
+                      marginBottom: 10,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingLeft: 15,
+                    }}>
+                    <ItemsComponents
+                      key={
+                        item.id ? item.id.toString() : Math.random().toString()
+                      }
+                      img={{uri: item?.thumbnail}}
+                      imgStyle={styles.imgStyle}
+                      text={item?.brand}
+                      priceText={item?.price}
+                      numberOfLines={1}
+                      item={item}
+                      keyExtractor={item =>
+                        item.id ? item.id.toString() : Math.random().toString()
+                      }
+                    />
+                  </View>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+            </View>
+          )}
+        </View>
       </ScrollView>
     </View>
   );
@@ -208,7 +298,8 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
+    fontFamily: 'Roboto-Bold',
     color: AppColor.white,
     paddingHorizontal: 24,
   },
@@ -234,6 +325,11 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  imgStyle: {
+    width: '100%',
+    height: 200,
+    // resizeMode: 'contain',
   },
 });
 export default HomePageScreen;

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import AppColor from '../../theme/AppColor';
 import AppStrings from '../../constants/AppString';
@@ -10,16 +10,22 @@ import AppImages from '../../constants/AppImages';
 import {AppRoutes} from '../../routes/AppRoutes';
 import {Formik} from 'formik';
 import {loginValidationSchema} from '../../validation/validation';
-import {AuthContext} from '../../services/context/AuthContext';
+import {handleSignInAuth, handleUserSignInAuth} from '../../auth/UserAuth';
+import {firebase} from '@react-native-firebase/auth';
 
 const SignInScreen = () => {
   const navigation = useNavigation();
   const [error, setError] = useState(null);
-
-
-  const handleLogin = email => {
-    navigation.navigate(AppRoutes.password);
+  const handleLogin = async email => {
+    try {
+      if (email !== '') {
+        navigation.navigate(AppRoutes.password, {email});
+      }
+    } catch (error) {
+      console.log('email: ', error);
+    }
   };
+
   return (
     <View
       style={{
@@ -35,7 +41,7 @@ const SignInScreen = () => {
       </View>
 
       <Formik
-        initialValues={{email: 'clot.2023@gmail.com'}}
+        initialValues={{email: 'test@gmail.com'}}
         onSubmit={values => {
           console.log(values);
           const {email} = values;
@@ -51,7 +57,6 @@ const SignInScreen = () => {
           touched,
         }) => (
           <>
-              
             <View style={styles.container}>
               <TextComponents
                 style={styles.emailText}

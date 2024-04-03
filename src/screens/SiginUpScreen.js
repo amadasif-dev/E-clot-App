@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -15,14 +15,34 @@ import {AppRoutes} from '../routes/AppRoutes';
 import {Formik} from 'formik';
 import {signUpValidationSchema} from '../validation/validation';
 import BackButtonScreenComponent from '../components/BackButtonScreenComponent';
-import {AuthContext} from '../services/context/AuthContext';
+import {handleUserSignUpAuth, handleUserSignup, handleUserSignupAuth} from '../auth/UserAuth';
+import googleConfig from '../auth/config';
+import LoaderComponent from '../components/LoaderComponent';
+import {firebase} from '@react-native-firebase/auth';
 
 const SiginUpScreen = () => {
+  const [loader, setLoader] = useState(false);
+  const [error, setError] = useState(null);
   const navigation = useNavigation();
 
-  handleSignup = () => {
-    navigation.navigate(AppRoutes.signIn);
+  useEffect(() => {
+    googleConfig();
+  });
+
+  const handleSignup = async (email, password, firstName) => {
+    try {
+      setLoader(true);
+      const user = await handleUserSignupAuth(email, password, firstName);
+      navigation.navigate(AppRoutes.signIn);
+      console.log('User: ', user.user.email);
+      setLoader(false);
+    } catch (error) {
+      console.log('Error during registration:', error);
+      setError(error);
+      setLoader(false);
+    }
   };
+
   return (
     <View
       style={{
@@ -42,15 +62,15 @@ const SiginUpScreen = () => {
       <ScrollView>
         <Formik
           initialValues={{
-            email: 'john@gmail.com',
+            email: 'test@gmail.com',
             password: 'Admin123@',
-            firstName: 'john doe',
-            lastName: 'Doe khan',
+            firstName: 'Test Case',
+            lastName: 'Case 1',
           }}
           onSubmit={values => {
             console.log(values);
-            const {firstName, lastName, email, password} = values;
-            handleSignup(firstName, lastName, email, password);
+            const {email, password, firstName, lastName} = values;
+            handleSignup(email, password, firstName, lastName);
           }}
           validationSchema={signUpValidationSchema}>
           {({
@@ -73,7 +93,7 @@ const SiginUpScreen = () => {
                 />
               </View>
               {errors.email && touched.email && (
-                <Text style={styles.errorText}>{errors.fullName}</Text>
+                <Text style={styles.errorText}>{errors.firstName}</Text>
               )}
               <View style={[styles.container, {marginTop: 16}]}>
                 <TextComponents
@@ -122,6 +142,7 @@ const SiginUpScreen = () => {
                   btnLabelStyle={styles.btnText}
                   onPress={handleSubmit}
                 />
+                {error && <Text style={styles.errorText}>{error}</Text>}
               </View>
             </>
           )}
@@ -159,6 +180,7 @@ const SiginUpScreen = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <LoaderComponent isLoading={loader} color={AppColor.primary} size={45} />
     </View>
   );
 };

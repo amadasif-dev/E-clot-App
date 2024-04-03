@@ -82,5 +82,7 @@ const AppStrings = {
   OrderNo: 'Order  #456765',
   shose: 'Shose (104)',
   bags: 'Bag (100)',
+  newIn: 'New In',
+  womenShoes: 'Women Shoes',
 };
 export default AppStrings;

@@ -6,26 +6,32 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {getProductShoes} from '../../axiosServices/productCategories/ProductCategoriesData';
+import {getProductListing} from '../../axiosServices/productCategories/ProductCategoriesData';
 import AppColor from '../../theme/AppColor';
 import BackButtonScreenComponent from '../../components/BackButtonScreenComponent';
 import AppStrings from '../../constants/AppString';
 import ItemsComponents from '../../components/ItemsComponent';
+import {MaterialIndicator} from 'react-native-indicators';
 
-const ShoesScreen = () => {
-  const [isData, setIsData] = useState([]);
+const ProductListing = props => {
+  const {endPoint, title} = props?.route?.params;
+
+  console.log(props);
+  const [isData, setIsData] = useState({data: []});
   const [isLoading, setIsloading] = useState(false);
   const getData = async () => {
     try {
       setIsloading(true);
-      const data = await getProductShoes();
-      setIsData(data?.products), console.log('data', isData);
+      const products = await getProductListing(endPoint);
+      setIsData(products?.products);
+      console.log('data', isData);
       setIsloading(false);
     } catch (error) {
       console.log('error: ', error);
       setIsloading(false);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
@@ -43,14 +49,17 @@ const ShoesScreen = () => {
           marginHorizontal: 24,
           marginTop: 16,
         }}>
-        <Text style={styles.txtStyle}>{AppStrings.shoes}</Text>
+        <Text style={styles.txtStyle}>{title}</Text>
       </View>
-      <View></View>
+      {/* <View>
+        <MaterialIndicator color="white" />
+      </View> */}
       {isLoading ? (
-        <ActivityIndicator
+        <MaterialIndicator
           animating={true}
           style={{marginVertical: 10}}
           size={50}
+          color={AppColor.primary}
         />
       ) : (
         <FlatList
@@ -91,7 +100,7 @@ const ShoesScreen = () => {
   );
 };
 
-export default ShoesScreen;
+export default ProductListing;
 
 const styles = StyleSheet.create({
   txtStyle: {

@@ -36,7 +36,7 @@ const ItemsComponents = props => {
                     <Text numberOfLines={numberOfLines} style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
                 </View>
                 <View style={{ paddingVertical: 12 }}>
-                    <Text style={[styles.textStyle, { paddingTop: 1 }]}>
+                    <Text style={[styles.textStyle, { paddingTop:1 }]}>
                        Rs# {priceText}
                     </Text>
                 </View>

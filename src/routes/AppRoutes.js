@@ -19,6 +19,6 @@ export const AppRoutes = {
   hoodiesScreen: 'HoodieScreen',
   exploreNotification: 'ExploreNotification',
   exploreOrder: 'ExploreOrder',
-  shoesScreen: 'ShoesScreen',
-  bagScreen: 'BagScreen',
+  productListing: 'productListing',
+  
 };

@@ -28,6 +28,10 @@ const ProfileScreen = () => {
     dispatch(ChangeThemeAction(theme));
   };
   useEffect(() => {}, [Theme]);
+
+  const signOut=()=>{
+    
+  }
   return (
     <View
       style={[
