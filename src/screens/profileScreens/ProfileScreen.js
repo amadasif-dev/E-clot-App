@@ -7,7 +7,7 @@ import {
   Switch,
   Button,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CardComponent from '../../components/CardComponent';
 import AppColor from '../../theme/AppColor';
 import AppIcons from '../../constants/AppIcon';
@@ -16,9 +16,13 @@ import {useNavigation} from '@react-navigation/native';
 import {AppRoutes} from '../../routes/AppRoutes';
 import {useDispatch, useSelector} from 'react-redux';
 import {ChangeThemeAction} from '../../reduxServices/action/ChangeThemeAction';
+import {signOutAuth} from '../../auth/UserAuth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AppStorage} from '../../auth/storage/AppStorage';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const [error, setError] = useState(null);
   const Theme = useSelector(state => state.themeReducer);
   const dispatch = useDispatch();
   console.log(Theme);
@@ -29,9 +33,18 @@ const ProfileScreen = () => {
   };
   useEffect(() => {}, [Theme]);
 
-  const signOut=()=>{
-    
-  }
+  const signOut = async () => {
+    try {
+      await signOutAuth();
+      await AsyncStorage.removeItem(AppStorage.user);
+      navigation.navigate(AppRoutes.signIn);
+      const data = await AsyncStorage.getItem(AppStorage.user);
+      console.log("data remove: ",data )
+    } catch (error) {
+      // Handle errors
+      setError(error);
+    }
+  };
   return (
     <View
       style={[
@@ -116,12 +129,12 @@ const ProfileScreen = () => {
             <Switch
               value={theme === 'dark'}
               onValueChange={toggleTheme}
-              trackColor={{false: 'grey', true: 'lightgrey'}} 
+              trackColor={{false: 'grey', true: 'lightgrey'}}
               thumbColor={theme === 'dark' ? 'white' : 'black'}
             />
           </View>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => signOut()}>
           <View style={{alignItems: 'center', marginTop: 35}}>
             <Text
               style={{
@@ -133,6 +146,7 @@ const ProfileScreen = () => {
             </Text>
           </View>
         </TouchableOpacity>
+        {error && <Text style={styles.errorText}>{error}</Text>}
       </ScrollView>
     </View>
   );
@@ -165,6 +179,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Roboto-Bold',
     color: AppColor.white,
+  },
+  errorText: {
+    color: AppColor.red,
+    fontFamily: 'Roboto-Light',
+    fontWeight: '400',
+    paddingHorizontal: 25,
+    marginTop: 5,
   },
 });
 export default ProfileScreen;

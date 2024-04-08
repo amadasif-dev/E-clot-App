@@ -10,12 +10,17 @@ import AppImages from '../../constants/AppImages';
 import {AppRoutes} from '../../routes/AppRoutes';
 import {Formik} from 'formik';
 import {loginValidationSchema} from '../../validation/validation';
-import {handleSignInAuth, handleUserSignInAuth} from '../../auth/UserAuth';
-import {firebase} from '@react-native-firebase/auth';
+import {facebookSignInAuth, googleSignInAuth} from '../../auth/UserAuth';
+import LoaderComponent from '../../components/LoaderComponent';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+  const [loader, setLoader] = useState(false);
   const [error, setError] = useState(null);
+  const [isAuthError, setIsAuthError] = useState(null);
+
+  // email password login handle
   const handleLogin = async email => {
     try {
       if (email !== '') {
@@ -23,6 +28,43 @@ const SignInScreen = () => {
       }
     } catch (error) {
       console.log('email: ', error);
+    }
+  };
+
+  // Google signin Config
+  useEffect(() => {
+    // google Config();
+    GoogleSignin.configure({
+      webClientId:
+        '274819137897-7icgporru6nnglvn35dpng95cdic8bhr.apps.googleusercontent.com',
+      offlineAccess: false,
+    });
+  });
+
+  // Google SignIn handle
+  const handleGoogleSignIn = async () => {
+    try {
+      setLoader(true);
+      const userInfo = await googleSignInAuth();
+      console.log('Google Sign-In Successful:', userInfo);
+      navigation.navigate(AppRoutes.bottomTabs);
+    } catch (error) {
+      console.log('Error during Google Sign-In:', error);
+      setIsAuthError(error);
+      setLoader(false);
+    }
+  };
+
+  // Facebook Sign In Handle
+  const handleFacebookSignIn = async () => {
+    try {
+      setLoader(true)
+      await facebookSignInAuth();
+      navigation.navigate(AppRoutes.bottomTabs);
+      setLoader(false)
+    } catch (error) {
+      setIsAuthError(error);
+      setLoader(false)
     }
   };
 
@@ -136,6 +178,7 @@ const SignInScreen = () => {
           text={AppStrings.google}
           img={AppImages.imgGoogle}
           btnLabelStyle={styles.btnText}
+          onPress={() => handleGoogleSignIn()}
         />
       </View>
       <View>
@@ -144,8 +187,13 @@ const SignInScreen = () => {
           text={AppStrings.facebook}
           img={AppImages.imgFacebook}
           btnLabelStyle={styles.btnText}
+          onPress={() => handleFacebookSignIn()}
         />
+      {isAuthError && (
+        <Text style={[styles.errorText, {paddingTop: 10}]}>{isAuthError}</Text>
+      )}
       </View>
+      <LoaderComponent isLoading={loader} color={AppColor.primary} size={45} />
     </View>
   );
 };
