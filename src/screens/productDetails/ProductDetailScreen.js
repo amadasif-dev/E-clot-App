@@ -7,14 +7,16 @@ import ButtonComponent from "../../components/ButtonComponent";
 import ProductQuantity from "../../components/ProductQuantity";
 import DropdownComponent from "../../components/DropDownComponent";
 import { useNavigation } from "@react-navigation/native";
+import BackButtonScreenComponent from "../../components/BackButtonScreenComponent";
 
 const ProductDetailScreen = (props) => {
-const navigation = useNavigation()
+    const navigation = useNavigation()
     const product = props?.route?.params?.item
     const [count, setCount] = useState(1)
     const [totalAmount, setTotalAmount] = useState()
     console.log(product)
 
+    const productImages = product?.images || [];
     useEffect(() => {
         setTotalAmount(product?.productPrice)
     }, [])
@@ -23,17 +25,7 @@ const navigation = useNavigation()
         <View style={{ flex: 1, backgroundColor: AppColor.dark }}>
             <View style={{ flexDirection: 'row', justifyContent: "space-between" }}>
                 <View style={{ padding: 24 }}>
-                    <View style={styles.iconStyle}>
-                        <View style={{
-                            position: "absolute",
-                        }}>
-                            <TouchableOpacity 
-                            onPress={()=>navigation.goBack()}
-                            >
-                                <AppIcons.icArrowleft2 />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
+                    <BackButtonScreenComponent />
                 </View>
                 <View style={{ padding: 24 }}>
                     <View style={styles.iconStyle}>
@@ -49,23 +41,40 @@ const navigation = useNavigation()
             </View>
             <View>
             </View>
-            <View style={{
+            {/* <View style={{
                 justifyContent: "center",
                 alignItems: "center",
             }}>
                 <Image source={product?.productImage} />
-            </View>
-            <View style={{ padding: 24 }}>
-                <Text style={{ color: AppColor.white }}>{product?.productName}</Text>
+            </View> */}
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+                <View style={{
+                    flexDirection: 'row', justifyContent: "center",
+                    alignItems: "center",
+                    paddingHorizontal: 24
+                }}>
+                    {productImages.map((imageUri, index) => (
+                        <Image
+                            key={index}
+                            source={{ uri: imageUri }}
+                            style={{ width: 100, height: 200, marginRight: 16 }}
+                        // You can adjust the style according to your requirement
+                        />
+                    ))}
+                </View>
+            </ScrollView>
+            <View style={{ paddingTop: 15 }}>
+                <Text style={[styles.textStyle]}>{product?.brand}</Text>
                 <View style={{ paddingTop: 15 }}>
-                    <Text style={{ color: AppColor.primary }}>{product?.productPrice}</Text>
+                    <Text style={[styles.textStyle,
+                    { color: AppColor.primary }]}> ${product?.price}</Text>
                 </View>
             </View>
             <ScrollView>
 
 
                 <View style={{ paddingHorizontal: 24 }}>
-                    <DropdownComponent
+                    {/* <DropdownComponent
             
                         value={product?.productSize[0]?.id}
                         items={product?.productSize?.map(e => {
@@ -77,9 +86,9 @@ const navigation = useNavigation()
                         onChange={(val) => {
                             console.log(val)
                         }}
-                    />
+                    /> */}
                 </View>
-                <View style={{ paddingTop: 12,paddingHorizontal:5 }}>
+                <View style={{ paddingTop: 12, paddingHorizontal: 5 }}>
                     <ProductQuantity
                         text={"Quantity"}
                         addIcon={AppIcons.icAdd}
@@ -89,41 +98,53 @@ const navigation = useNavigation()
                             if (val > 1) {
                                 const newCount = val - 1;
                                 setCount(newCount)
-                                setTotalAmount(x => x - product?.productPrice)
+                                setTotalAmount(x => x - product?.price)
                             }
 
                         }}
                         handleAdd={(val) => {
                             setCount(val + 1)
-                            setTotalAmount(product?.productPrice * val)
+                            setTotalAmount(product?.price * val)
                         }}
                     />
                 </View>
                 <View style={{ paddingTop: 26 }}>
-                    <Text style={{
+                    <Text style={[styles.textStyle, {
                         fontSize: 12,
                         paddingHorizontal: 24,
+                        fontFamily: 'Roboto-Light',
 
-                    }}>{AppStrings.description}</Text>
+
+                    }]}>{product?.description}</Text>
                 </View>
                 <View style={{ paddingTop: 24 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: "700",
-                        color: AppColor.white,
-                        paddingHorizontal: 24,
+                    <Text style={[styles.textStyle]}>{AppStrings.shippingReturns}</Text>
+                    <Text style={[styles.textStyle, {
 
-                    }}>{AppStrings.shippingReturns}</Text>
-                    <Text style={{
                         fontSize: 12,
-                        fontWeight: "400",
-                        paddingHorizontal: 24,
-                        paddingTop: 12
+                        paddingTop: 12,
+                        fontFamily: 'Roboto-Light',
 
-                    }}>
+
+                    }]}>
                         Free standard shipping and free 60-day returns
                     </Text>
                 </View>
+
+                <View style={{ paddingVertical: 10 }}>
+                    <Text style={[styles.textStyle, {
+                        fontSize: 20,
+
+                    }]}>Review</Text>
+                </View>
+                <View>
+                    <Text style={[styles.textStyle, {
+                        fontSize: 24,
+                        fontWeight: "700",
+
+                    }]}>{product.rating}</Text>
+                </View>
+
                 <View style={{ paddingTop: 80 }}>
                     <ButtonComponent
                         text={`${totalAmount}`}
@@ -166,9 +187,16 @@ const styles = StyleSheet.create({
         backgroundColor: AppColor.primary,
 
     },
-    btnText:{
-        paddingHorizontal:22
-    }
+    btnText: {
+        paddingHorizontal: 22
+    },
+    textStyle: {
+        fontSize: 16,
+        fontWeight: '400',
+        fontFamily: 'Roboto-Bold',
+        color: AppColor.white,
+        paddingHorizontal: 24,
+    },
 
 })
 export default ProductDetailScreen; 

@@ -14,48 +14,48 @@ const ProductQuantity = props => {
                 }}>{text}</Text>
             </View>
 
-            <View style={{
-                borderRadius: 100,
-                borderWidth: 0.2,
-                backgroundColor: AppColor.primary,
-                width: 40,
-                height: 40,
-                right: 24,
-                position: "relative",
-                justifyContent: "center",
-                alignItems: "center",
-            }}>
-                <View style={{ position: 'absolute' }}>
-                    <TouchableOpacity
+            <TouchableOpacity
 
-                        onPress={() => handleAdd(count)}
+                onPress={() => handleAdd(count)}
 
-                    >
+            >
+                <View style={{
+                    borderRadius: 100,
+                    borderWidth: 0.2,
+                    backgroundColor: AppColor.primary,
+                    width: 40,
+                    height: 40,
+                    right: 24,
+                    position: "relative",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
+                    <View style={{ position: 'absolute' }}>
                         {addIcon && <props.addIcon />}
-                    </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
             <View style={{ paddingRight: 50 }}>
                 <Text style={{
                     fontSize: 14, fontWeight: "400",
                     color: AppColor.white
                 }}>{count}</Text>
             </View>
-            <View style={{
-                borderRadius: 100,
-                borderWidth: 0.2,
-                backgroundColor: AppColor.primary,
-                width: 40,
-                height: 40,
-                right: 24,
-                position: "relative",
-                justifyContent: "center",
-                alignItems: "center",
-            }}>
-                <TouchableOpacity onPress={() => handleSubtract(count)}>
+            <TouchableOpacity onPress={() => handleSubtract(count)}>
+                <View style={{
+                    borderRadius: 100,
+                    borderWidth: 0.2,
+                    backgroundColor: AppColor.primary,
+                    width: 40,
+                    height: 40,
+                    right: 24,
+                    position: "relative",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}>
                     {minusIcon && <props.minusIcon />}
-                </TouchableOpacity>
-            </View>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 }
