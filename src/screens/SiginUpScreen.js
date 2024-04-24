@@ -29,10 +29,10 @@ const SiginUpScreen = () => {
     googleConfig();
   });
 
-  const handleSignup = async (email, password, firstName) => {
+  const handleSignup = async (email, password, displayName) => {
     try {
       setLoader(true);
-      const user = await handleUserSignupAuth(email, password, firstName);
+      const user = await handleUserSignupAuth(email, password, displayName);
       navigation.navigate(AppRoutes.signIn);
       console.log('User: ', user.user.email);
       setLoader(false);
@@ -64,13 +64,13 @@ const SiginUpScreen = () => {
           initialValues={{
             email: 'test@gmail.com',
             password: 'Admin123@',
-            firstName: 'Test Case',
+            displayName: 'Test Case',
             lastName: 'Case 1',
           }}
           onSubmit={values => {
             console.log(values);
-            const {email, password, firstName, lastName} = values;
-            handleSignup(email, password, firstName, lastName);
+            const {email, password, displayName, lastName} = values;
+            handleSignup(email, password, displayName, lastName);
           }}
           validationSchema={signUpValidationSchema}>
           {({
@@ -89,11 +89,11 @@ const SiginUpScreen = () => {
                   secureTextEntry={false}
                   onChangeText={handleChange('firstName')}
                   onBlur={handleBlur('firstName')}
-                  value={values.firstName}
+                  value={values.displayName}
                 />
               </View>
               {errors.email && touched.email && (
-                <Text style={styles.errorText}>{errors.firstName}</Text>
+                <Text style={styles.errorText}>{errors.displayName}</Text>
               )}
               <View style={[styles.container, {marginTop: 16}]}>
                 <TextComponents

@@ -28,15 +28,6 @@ const HomePageScreen = props => {
   const [isAlertVisible, setAlertVisible] = useState(false);
   const [isData, setIsData] = useState({data: []});
   const [isLoading, setIsloading] = useState(false);
-
-  const openModal = () => {
-    setAlertVisible(true);
-  };
-
-  const closeModal = () => {
-    setAlertVisible(false);
-  };
-
   const getData = async () => {
     try {
       setIsloading(true);

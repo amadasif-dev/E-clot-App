@@ -1,9 +1,9 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import AppColor from '../theme/AppColor';
 import { useSelector } from 'react-redux';
+import AppColor from '../../../theme/AppColor';
 
-const CardComponent = props => {
+const ProfileScreenComponent = props => {
   const {
     text,
     title,
@@ -32,7 +32,7 @@ const CardComponent = props => {
             {text}
           </Text>
         )}
-        <View style={{right: 44}}>
+        <View style={{right: 4}}>
           <TouchableOpacity
             disabled={disabled}
             onPress={onPress}
@@ -62,7 +62,7 @@ const CardComponent = props => {
   );
 };
 
-export default CardComponent;
+export default ProfileScreenComponent;
 
 const styles = StyleSheet.create({
   container: {

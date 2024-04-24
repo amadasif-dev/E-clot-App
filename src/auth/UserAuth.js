@@ -11,15 +11,17 @@ import {
 import {LoginManager, AccessToken} from 'react-native-fbsdk-next';
 
 // Sign Up Auth Handle
-export const handleUserSignupAuth = async (email, password) => {
+export const handleUserSignupAuth = async (email, password,displayName) => {
   try {
-    console.log(email, password);
-
+    console.log(email, password,displayName);
     const res = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    console.log('Login Successfull', res);
-    await AsyncStorage.setItem(AppStorage.user, JSON.stringify(res));
+      firebase.auth().currentUser.updateProfile({
+        displayName:displayName
+      })
+      await AsyncStorage.setItem(AppStorage.user, JSON.stringify(res));
+      console.log('signUp Successfull', res);
     return res;
   } catch (error) {
     console.log('Error during registration:', error);
@@ -33,9 +35,9 @@ export const handleUserSignupAuth = async (email, password) => {
 };
 
 // Sign In Auth Handle
-export const handleSignInAuth = async (email, password) => {
+export const handleSignInAuth = async (email, password,displayName) => {
   try {
-    console.log(email, password);
+    console.log(email, password,displayName);
     const res = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password);
@@ -47,7 +49,7 @@ export const handleSignInAuth = async (email, password) => {
     await userDoc.set({
       uid: res.user.uid,
       email: res.user.email,
-      displayName: res.user.displayName,
+      displayName:res.user.displayName,
     });
     await AsyncStorage.setItem(AppStorage.user, JSON.stringify(res));
     console.log('userDoc', userDoc);
