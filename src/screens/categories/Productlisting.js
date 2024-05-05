@@ -9,7 +9,6 @@ import React, {useEffect, useState} from 'react';
 import {getProductListing} from '../../axiosServices/productCategories/ProductCategoriesData';
 import AppColor from '../../theme/AppColor';
 import BackButtonScreenComponent from '../../components/BackButtonScreenComponent';
-import AppStrings from '../../constants/AppString';
 import ItemsComponents from '../../components/ItemsComponent';
 import {MaterialIndicator} from 'react-native-indicators';
 

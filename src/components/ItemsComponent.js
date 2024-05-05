@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import AppImages from "../constants/AppImages";
 import AppColor from "../theme/AppColor";
-import AppStrings from "../constants/AppString";
 import AppIcons from "../constants/AppIcon";
 import { useNavigation } from "@react-navigation/native";
 import { AppRoutes } from "../routes/AppRoutes";
 
 const ItemsComponents = props => {
     const navigation = useNavigation();
-    const { img, text, priceText, onPress, item,numberOfLines,imgStyle } = props
+    const { img, text, priceText, onPress, item, numberOfLines, imgStyle, activeHeartIcon,unActiveHeartIcon } = props
+    console.log(props)
+
     return (
         <View style={styles.container}>
             <View style={{
@@ -17,16 +17,20 @@ const ItemsComponents = props => {
                 position: "relative"
             }}>
                 <Image source={img}
-                style={[imgStyle,{...imgStyle}]}
+                    style={[imgStyle, { ...imgStyle }]}
                 />
                 <View style={{
                     position: "absolute",
                     paddingTop: 9,
                     paddingRight: 15,
                 }}>
-                    <TouchableOpacity>
-                        <AppIcons.icHeart />
+                    <TouchableOpacity onPress={onPress}>
+                        {activeHeartIcon && < props.activeHeartIcon />}
                     </TouchableOpacity>
+                    <TouchableOpacity>
+                        {unActiveHeartIcon && <props.unActiveHeartIcon />}
+                    </TouchableOpacity>
+
                 </View>
             </View>
             <TouchableOpacity
@@ -36,8 +40,8 @@ const ItemsComponents = props => {
                     <Text numberOfLines={numberOfLines} style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
                 </View>
                 <View style={{ paddingVertical: 12 }}>
-                    <Text style={[styles.textStyle, { paddingTop:1 }]}>
-                       Rs# {priceText}
+                    <Text style={[styles.textStyle, { paddingTop: 1 }]}>
+                        Rs# {priceText}
                     </Text>
                 </View>
             </TouchableOpacity>

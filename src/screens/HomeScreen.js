@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,20 +14,30 @@ import TextComponents from '../components/TextComponent';
 import CategoriesComponents from '../components/CategoriesComponent';
 import ItemsComponents from '../components/ItemsComponent';
 import ProductListing from '../json/ProductListingJson';
-import CustomModal from '../components/ModalComponent';
-import ButtonComponent from '../components/ButtonComponent';
-import {AppRoutes} from '../routes/AppRoutes';
-import {useNavigation} from '@react-navigation/native';
-import {getProductListing} from '../axiosServices/productCategories/ProductCategoriesData';
-import {MaterialIndicator} from 'react-native-indicators';
+import { AppRoutes } from '../routes/AppRoutes';
+import { useNavigation } from '@react-navigation/native';
+import { getProductListing } from '../axiosServices/productCategories/ProductCategoriesData';
+import { MaterialIndicator } from 'react-native-indicators';
+import { RemoveWishListItem, WishListItem } from '../reduxServices/action/WishListItem';
+import { useDispatch, useSelector } from 'react-redux';
 
 const HomePageScreen = props => {
   const navigation = useNavigation();
   // const {endPoint} = props?.route?.params;
   console.log(props);
-  const [isAlertVisible, setAlertVisible] = useState(false);
-  const [isData, setIsData] = useState({data: []});
+  const [isData, setIsData] = useState({ data: [] });
   const [isLoading, setIsloading] = useState(false);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  useEffect(() => { }, [wishList]);
+
+  // Product Get in Redux Store
+  const dispatch = useDispatch()
+  const wishList = useSelector(State => State.wishListItemReducer)
+
+  // Product API fetch with Axios 
   const getData = async () => {
     try {
       setIsloading(true);
@@ -45,13 +55,28 @@ const HomePageScreen = props => {
       setIsloading(false);
     }
   };
-  useEffect(() => {
-    getData();
-  }, []);
+  // handle and DisPatch 
+  const handleWishListItmes = (item) => {
+    dispatch(WishListItem(item));
+    console.log('done', item);
+  }
+
+  // Handle Product remove to wish List items
+  const handleRemoveWishListItems = (item) => {
+    dispatch(RemoveWishListItem(item));
+    console.log(item)
+  }
+  // Product is  exits in Redux store then show
+  const checkProductExistInWishList = id => {
+    const isExists = wishList?.items?.some(x => x.id === id);
+    return isExists;
+  }
+
+
   return (
-    <View style={{flex: 1, backgroundColor: AppColor.dark}}>
+    <View style={{ flex: 1, backgroundColor: AppColor.dark }}>
       <View style={styles.conatiner}>
-        <View style={{left: 24}}>
+        <View style={{ left: 24 }}>
           <AppIcons.icProfile />
         </View>
         <View style={styles.circle}>
@@ -69,43 +94,6 @@ const HomePageScreen = props => {
               <TouchableOpacity>
                 <AppIcons.icBag />
               </TouchableOpacity>
-              {/* <CustomModal isVisible={isAlertVisible} onClose={closeModal}>
-                <View style={styles.container}>
-                  <TextComponents
-                    style={styles.emailText}
-                    placeholder={'Item Name'}
-                    secureTextEntry={false}
-                  />
-                </View>
-                <View style={styles.container}>
-                  <TextComponents
-                    style={styles.emailText}
-                    placeholder={'Item Price'}
-                    secureTextEntry={false}
-                  />
-                </View>
-                <View style={styles.container}>
-                  <TextComponents
-                    style={styles.emailText}
-                    placeholder={'Color Code'}
-                    secureTextEntry={false}
-                  />
-                </View>
-                <View style={[styles.container]}>
-                  <TextComponents
-                    style={styles.emailText}
-                    placeholder={'Details'}
-                    secureTextEntry={false}
-                  />
-                </View>
-                <View>
-                  <ButtonComponent
-                    style={styles.btnStyle}
-                    text={'Submit'}
-                    btnLabelStyle={styles.btnText}
-                  />
-                </View>
-              </CustomModal> */}
             </View>
           </View>
         </View>
@@ -141,19 +129,19 @@ const HomePageScreen = props => {
         <Text style={[styles.textStyle, {}]}>{AppStrings.Categories}</Text>
         <TouchableOpacity onPress={() => navigation.navigate(AppRoutes.seeAll)}>
           <View>
-            <Text style={[styles.textStyle, {fontWeight: '400'}]}>
+            <Text style={[styles.textStyle, { fontWeight: '400' }]}>
               {AppStrings.SeeAll}
             </Text>
           </View>
         </TouchableOpacity>
       </View>
       <CategoriesComponents />
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-        <Text style={[styles.textStyle, {paddingTop: 24}]}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Text style={[styles.textStyle, { paddingTop: 24 }]}>
           {AppStrings.topSelling}
         </Text>
         <View>
-          <Text style={[styles.textStyle, {fontWeight: '400', paddingTop: 24}]}>
+          <Text style={[styles.textStyle, { fontWeight: '400', paddingTop: 24 }]}>
             {AppStrings.SeeAll}
           </Text>
         </View>
@@ -164,13 +152,13 @@ const HomePageScreen = props => {
           overScrollMode="never"
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{paddingHorizontal: 8, paddingTop: 16}}
+          contentContainerStyle={{ paddingHorizontal: 8, paddingTop: 16 }}
           data={ProductListing}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
-              <View style={{paddingLeft: 15}}>
+              <View style={{ paddingLeft: 15 }}>
                 <ItemsComponents
-                  key={item.id ? item.id.toString() : Math.random().toString()}
+                  // key={item.id ? item.id.toString() : Math.random().toString()}
                   img={item?.productImage}
                   text={item?.productName}
                   icon={AppIcons.icApple}
@@ -185,16 +173,16 @@ const HomePageScreen = props => {
             item.id ? item.id.toString() : Math.random().toString()
           }
         />
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text
             style={[
               styles.textStyle,
-              {paddingTop: 24, color: AppColor.primary},
+              { paddingTop: 24, color: AppColor.primary },
             ]}>
             {AppStrings.newIn}
           </Text>
           <View>
-            <Text style={[styles.textStyle, {paddingTop: 24}]}>
+            <Text style={[styles.textStyle, { paddingTop: 24 }]}>
               {AppStrings.SeeAll}
             </Text>
           </View>
@@ -203,7 +191,7 @@ const HomePageScreen = props => {
           {isLoading ? (
             <MaterialIndicator
               animating={true}
-              style={{marginVertical: 10}}
+              style={{ marginVertical: 10 }}
               size={30}
               color={AppColor.primary}
             />
@@ -219,7 +207,7 @@ const HomePageScreen = props => {
                 showsHorizontalScrollIndicator={false}
                 overScrollMode="never"
                 data={isData}
-                renderItem={({item}) => (
+                renderItem={({ item }) => (
                   <View
                     style={{
                       flex: 1,
@@ -228,20 +216,41 @@ const HomePageScreen = props => {
                       justifyContent: 'center',
                       paddingLeft: 15,
                     }}>
-                    <ItemsComponents
-                      key={
-                        item.id ? item.id.toString() : Math.random().toString()
-                      }
-                      img={{uri: item?.thumbnail}}
-                      imgStyle={styles.imgStyle}
-                      text={item?.brand}
-                      priceText={item?.price}
-                      numberOfLines={1}
-                      item={item}
-                      keyExtractor={item =>
-                        item.id ? item.id.toString() : Math.random().toString()
-                      }
-                    />
+                    {checkProductExistInWishList(item.id) ? (
+                      <ItemsComponents
+                        key={
+                          item.id ? item.id.toString() : Math.random().toString()
+                        }
+                        img={{ uri: item?.thumbnail }}
+                        imgStyle={styles.imgStyle}
+                        text={item?.brand}
+                        priceText={item?.price}
+                        numberOfLines={1}
+                        item={item}
+                        onPress={() => handleRemoveWishListItems(item)}
+                        activeHeartIcon={AppIcons.icRedHeart}
+                        keyExtractor={item =>
+                          item.id ? item.id.toString() : Math.random().toString()
+                        }
+                      />
+                    ) : (
+                      <ItemsComponents
+                        key={
+                          item.id ? item.id.toString() : Math.random().toString()
+                        }
+                        img={{ uri: item?.thumbnail }}
+                        imgStyle={styles.imgStyle}
+                        text={item?.brand}
+                        priceText={item?.price}
+                        numberOfLines={1}
+                        item={item}
+                        onPress={() => handleWishListItmes(item)}
+                        activeHeartIcon={AppIcons.icHeart}
+                        keyExtractor={item =>
+                          item.id ? item.id.toString() : Math.random().toString()
+                        }
+                      />
+                    )}
                   </View>
                 )}
                 keyExtractor={(item, index) => index.toString()}

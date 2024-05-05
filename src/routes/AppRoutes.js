@@ -20,5 +20,6 @@ export const AppRoutes = {
   exploreNotification: 'ExploreNotification',
   exploreOrder: 'ExploreOrder',
   productListing: 'productListing',
+  wishListScreen:"WishListScreen"
   
 };

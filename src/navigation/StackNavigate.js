@@ -16,6 +16,7 @@ import HoodiesScreen from "../screens/categories/HoodiesScreen";
 import ExploreNotification from "../screens/notification/ExploreNotification";
 import OrderExplore from "../screens/order/OrderExplore";
 import ProductListing from "../screens/categories/Productlisting";
+import WishListScreen from "../screens/profileScreens/wishList/WishListScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +41,7 @@ const StackNavigation = () => {
             <Stack.Screen name={AppRoutes.exploreNotification} component={ExploreNotification}/>
             <Stack.Screen name={AppRoutes.exploreOrder} component={OrderExplore}/>
             <Stack.Screen name={AppRoutes.productListing} component={ProductListing}/>
+            <Stack.Screen name={AppRoutes.wishListScreen} component={WishListScreen}/>
             
 
         </Stack.Navigator>

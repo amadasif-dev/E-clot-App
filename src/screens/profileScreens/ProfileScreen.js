@@ -43,7 +43,6 @@ const ProfileScreen = () => {
         userData.user.email
         ]
         setIsData(showData)
-        console.log('Read data:', isdata);
       } else {
         console.log('No data found in AsyncStorage');
       }
@@ -105,6 +104,7 @@ const ProfileScreen = () => {
             text={AppStrings.wishList}
             icon={AppIcons.icArrowright}
             style={styles.cardstyle}
+            onPress={() => navigation.navigate(AppRoutes.wishListScreen)}
           />
         </View>
         <View style={{ marginLeft: 24, marginRight: 24, marginTop: 8 }}>
