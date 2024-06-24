@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
   View,
   TouchableOpacity,
   Text,
   ScrollView,
-  FlatList,
+  FlatList
 } from 'react-native';
 import AppIcons from '../constants/AppIcon';
 import AppColor from '../theme/AppColor';
@@ -22,8 +21,9 @@ import { RemoveWishListItem, WishListItem } from '../reduxServices/action/WishLi
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppStorage } from '../auth/storage/AppStorage';
+import { styles } from './HomeScreen';
 
-const HomePageScreen = props => {
+export const HomePageScreen = props => {
   const navigation = useNavigation();
   // const {endPoint} = props?.route?.params;
   // console.log(props);
@@ -37,8 +37,8 @@ const HomePageScreen = props => {
 
 
   // Product Get in Redux Store
-  const dispatch = useDispatch()
-  const wishList = useSelector(State => State.wishListItemReducer)
+  const dispatch = useDispatch();
+  const wishList = useSelector(State => State.wishListItemReducer);
 
   // Product API fetch with Axios 
   const getData = async () => {
@@ -67,20 +67,20 @@ const HomePageScreen = props => {
     } catch (error) {
       console.error('Error storing item in AsyncStorage:', error);
     }
-  }
+  };
 
   // Handle Product remove to wish List items
   const handleRemoveWishListItems = async (item) => {
     try {
       dispatch(RemoveWishListItem(item));
-      await AsyncStorage.removeItem(AppStorage.wishListItmesStore)
+      await AsyncStorage.removeItem(AppStorage.wishListItmesStore);
       console.log('Item successfully Removed in AsyncStorage.');
     } catch (error) {
       console.error('Error storing item in AsyncStorage:', error);
 
     }
 
-  }
+  };
   // Product is  exits in Redux store then show
   const checkProductExistInWishList = id => {
     try {
@@ -90,11 +90,9 @@ const HomePageScreen = props => {
 
 
     } catch (error) {
-
     }
-  }
 
-
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: AppColor.dark }}>
@@ -140,8 +138,7 @@ const HomePageScreen = props => {
         <TextComponents
           style={styles.searchStyle}
           placeholder={AppStrings.Search}
-          secureTextEntry={false}
-        />
+          secureTextEntry={false} />
       </View>
       <View
         style={{
@@ -187,15 +184,11 @@ const HomePageScreen = props => {
                   icon={AppIcons.icApple}
                   priceText={item?.productPrice}
                   numberOfLines={2}
-                  item={item}
-                />
+                  item={item} />
               </View>
             );
           }}
-          keyExtractor={item =>
-            item.id ? item.id.toString() : Math.random().toString()
-          }
-        />
+          keyExtractor={item => item.id ? item.id.toString() : Math.random().toString()} />
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text
             style={[
@@ -216,8 +209,7 @@ const HomePageScreen = props => {
               animating={true}
               style={{ marginVertical: 10 }}
               size={30}
-              color={AppColor.primary}
-            />
+              color={AppColor.primary} />
           ) : (
             <View>
               <FlatList
@@ -240,32 +232,41 @@ const HomePageScreen = props => {
                       paddingLeft: 15,
                     }}>
                     <ItemsComponents
-                      key={
-                        item.id ? item.id.toString() : Math.random().toString()
-                      }
+                      key={item.id ? item.id.toString() : Math.random().toString()}
                       img={{ uri: item?.thumbnail }}
                       imgStyle={styles.imgStyle}
                       text={item?.brand}
                       priceText={item?.price}
                       numberOfLines={1}
                       item={item}
-                      onPress={() =>
-                        checkProductExistInWishList(item.id)
-                          ? handleRemoveWishListItems(item)
-                          : handleWishListItems(item)
-                      }
-                      const activeHeartIcon={checkProductExistInWishList(item.id)
-                        ? AppIcons.icRedHeart
-                        : AppIcons.icHeart}
+                      onPress={() => handleRemoveWishListItems(item)}
+                      const activeHeartIcon={checkProductExistInWishList(item.id) ? AppIcons.icRedHeart : AppIcons.icHeart}
                       icShare={AppIcons.icShare}
-                      keyExtractor={item =>
-                        item.id ? item.id.toString() : Math.random().toString()
-                      }
-                    />
+                      keyExtractor={item => item.id ? item.id.toString() : Math.random().toString()} />
+                    {/* {checkProductExistInWishList(item.id) ? (
+                                  
+                                ) : (
+                                  <ItemsComponents
+                                    key={
+                                      item.id ? item.id.toString() : Math.random().toString()
+                                    }
+                                    img={{ uri: item?.thumbnail }}
+                                    imgStyle={styles.imgStyle}
+                                    text={item?.brand}
+                                    priceText={item?.price}
+                                    numberOfLines={1}
+                                    item={item}
+                                    onPress={() => handleWishListItems(item)}
+            
+                                    icShare={AppIcons.icShare}
+                                    keyExtractor={item =>
+                                      item.id ? item.id.toString() : Math.random().toString()
+                                    }
+                                  />
+                                )} */}
                   </View>
                 )}
-                keyExtractor={(item, index) => index.toString()}
-              />
+                keyExtractor={(item, index) => index.toString()} />
             </View>
           )}
         </View>
@@ -273,74 +274,3 @@ const HomePageScreen = props => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonStyle: {
-    width: 100,
-    height: 50,
-  },
-  conatiner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 15,
-  },
-  circle: {
-    borderRadius: 100,
-    borderWidth: 0.2,
-    backgroundColor: AppColor.primary,
-    width: 40,
-    height: 40,
-    right: 24,
-    position: 'relative',
-  },
-  searchStyle: {
-    fontFamily: 'Roboto-Light',
-    fontWeight: '400',
-    letterSpacing: -0.4,
-    fontSize: 16,
-    color: AppColor.white,
-  },
-  textInput: {
-    fontSize: 12,
-    fontWeight: '400',
-    lineHeight: 160,
-    paddingHorizontal: 19,
-    color: AppColor.white,
-  },
-  textStyle: {
-    fontSize: 16,
-    fontWeight: '400',
-    fontFamily: 'Roboto-Bold',
-    color: AppColor.white,
-    paddingHorizontal: 24,
-  },
-  emailText: {
-    fontFamily: 'Roboto-Light',
-    fontWeight: '400',
-    letterSpacing: -0.4,
-    fontSize: 16,
-    paddingHorizontal: 15,
-    color: AppColor.white,
-  },
-  container: {
-    borderRadius: 4,
-    backgroundColor: AppColor.lightDark,
-    marginTop: 10,
-    marginHorizontal: 24,
-  },
-  btnStyle: {
-    width: 250,
-    paddingVertical: 15,
-    backgroundColor: AppColor.lightDark,
-    marginTop: 16,
-    borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  imgStyle: {
-    width: '100%',
-    height: 200,
-    // resizeMode: 'contain',
-  },
-});
-export default HomePageScreen;

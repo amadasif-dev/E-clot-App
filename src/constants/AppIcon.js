@@ -27,8 +27,10 @@ import icActiveProfileTab from "../assets/icons/icActiveProfileTab.svg"
 import icOrderNoActice from '../assets/icons/icOrderNoActice.svg'
 import icArrowright from "../assets/icons/icArrowright.svg"
 import icRedHeart from "../assets/icons/icRedHeart.svg"
+import icShare from "../assets/icons/icShare.svg"
 
 const AppIcons = {
+    icShare,
     icRedHeart,
     icApple,
     icAccessories,

@@ -34,26 +34,27 @@ const WishListScreen = () => {
                 flex: 1,
                 backgroundColor: AppColor.dark,
             }}>
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 20, flexDirection:'row' }}>
                 <BackButtonScreenComponent style={{ marginLeft: 27 }} />
-            </View>
-            <View
-                style={{
-                    marginHorizontal: 24,
-                    marginTop: 16,
-                    justifyContent: 'center',
-                    alignItems: "center"
-                }}>
-                <Text style={styles.txtStyle}>My Favourit</Text>
+                <View
+                    style={{
+                        marginHorizontal: "20%",
+                        justifyContent: 'center',
+                        alignItems: "center"
+                    }}>
+                    <Text style={styles.txtStyle}>My Favourit {data.length}</Text>
+                </View>
             </View>
 
-            <View>
+
+            <View style={{marginTop:20}}>
                 <FlatList
                     // numColumns={2}
+                    numColumns={2}
                     contentContainerStyle={{
                         marginVertical: 16,
                         marginHorizontal: 20,
-                        paddingBottom: '10%',
+                        paddingBottom: '20%',
                     }}
                     overScrollMode="never"
                     data={isData}
@@ -74,11 +75,12 @@ const WishListScreen = () => {
                                 numberOfLines={2}
                                 item={item}
                                 activeHeartIcon={AppIcons.icRedHeart}
-                                 onPress={()=>handleRemoveWishListItems(item)}
+                                icShare={AppIcons.icShare}
+                                onPress={() => handleRemoveWishListItems(item)}
                                 keyExtractor={item =>
                                     item.id ? item.id.toString() : Math.random().toString()
                                 }
-                               
+
                             />
                         </View>
                     )}

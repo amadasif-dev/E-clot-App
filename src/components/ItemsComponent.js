@@ -7,7 +7,7 @@ import { AppRoutes } from "../routes/AppRoutes";
 
 const ItemsComponents = props => {
     const navigation = useNavigation();
-    const { img, text, priceText, onPress, item, numberOfLines, imgStyle, activeHeartIcon,unActiveHeartIcon } = props
+    const { img, text, priceText, onPress, item, numberOfLines, imgStyle, activeHeartIcon,icShare } = props
     console.log(props)
 
     return (
@@ -27,9 +27,13 @@ const ItemsComponents = props => {
                     <TouchableOpacity onPress={onPress}>
                         {activeHeartIcon && < props.activeHeartIcon />}
                     </TouchableOpacity>
+                    
+                    <View style={{paddingTop:5}}>
+
                     <TouchableOpacity>
-                        {unActiveHeartIcon && <props.unActiveHeartIcon />}
+                        {icShare && <props.icShare />}
                     </TouchableOpacity>
+                    </View>
 
                 </View>
             </View>
@@ -40,7 +44,10 @@ const ItemsComponents = props => {
                     <Text numberOfLines={numberOfLines} style={[styles.textStyle, { paddingTop: 1 }]} >{text}</Text>
                 </View>
                 <View style={{ paddingVertical: 12 }}>
-                    <Text style={[styles.textStyle, { paddingTop: 1 }]}>
+                    <Text style={[styles.textStyle, {
+                        paddingTop: 1, fontFamily: 'Roboto-Bold',
+                        fontWeight: '400',
+                    }]}>
                         Rs# {priceText}
                     </Text>
                 </View>
@@ -63,7 +70,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '400',
         paddingTop: 10,
-        paddingHorizontal: 5,
+        paddingHorizontal: 2,
         color: AppColor.white,
         maxWidth: 100,
         fontFamily: 'Roboto-Light',

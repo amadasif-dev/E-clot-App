@@ -1,8 +1,8 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Platform, StyleSheet} from 'react-native';
 import {AppRoutes} from '../routes/AppRoutes';
-import HomePageScreen from '../screens/HomeScreen';
+
 import OrderScreen from '../screens/order/OrderScreen';
 import ProfileScreen from '../screens/profileScreens/ProfileScreen';
 import AppIcons from '../constants/AppIcon';
@@ -10,6 +10,7 @@ import StackNavigation from './StackNavigate';
 import NotificationScreen from '../screens/notification/NotificationScreen';
 import AppColor from '../theme/AppColor';
 import {useSelector} from 'react-redux';
+import HomePageScreen from '../screens/HomeScreen';
 
 const Bottom = createBottomTabNavigator();
 

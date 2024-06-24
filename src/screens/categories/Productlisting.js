@@ -5,19 +5,29 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {getProductListing} from '../../axiosServices/productCategories/ProductCategoriesData';
+import React, { useEffect, useState } from 'react';
+import { getProductListing } from '../../axiosServices/productCategories/ProductCategoriesData';
 import AppColor from '../../theme/AppColor';
 import BackButtonScreenComponent from '../../components/BackButtonScreenComponent';
 import ItemsComponents from '../../components/ItemsComponent';
-import {MaterialIndicator} from 'react-native-indicators';
+import { MaterialIndicator } from 'react-native-indicators';
+import AppIcons from '../../constants/AppIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { RemoveWishListItem, WishListItem } from '../../reduxServices/action/WishListItem';
 
 const ProductListing = props => {
-  const {endPoint, title} = props?.route?.params;
+  const { endPoint, title } = props?.route?.params;
 
   console.log(props);
-  const [isData, setIsData] = useState({data: []});
+  const [isData, setIsData] = useState({ data: [] });
   const [isLoading, setIsloading] = useState(false);
+
+  useEffect(() => {
+    getData();
+  }, []);
+  useEffect(() => { }, [wishList]);
+
+  // data fetch with axios
   const getData = async () => {
     try {
       setIsloading(true);
@@ -30,18 +40,35 @@ const ProductListing = props => {
       setIsloading(false);
     }
   };
+  // Product Get in Redux Store
+  const dispatch = useDispatch()
+  const wishList = useSelector(State => State.wishListItemReducer)
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // handle and DisPatch 
+  const handleWishListItmes = (item) => {
+    dispatch(WishListItem(item));
+    console.log('done', item);
+  }
+
+  // Handle Product remove to wish List items
+  const handleRemoveWishListItems = (item) => {
+    dispatch(RemoveWishListItem(item));
+    console.log(item)
+  }
+  // Product is  exits in Redux store then show
+  const checkProductExistInWishList = id => {
+    const isExists = wishList?.items?.some(x => x.id === id);
+    return isExists;
+  }
+
   return (
     <View
       style={{
         flex: 1,
         backgroundColor: AppColor.dark,
       }}>
-      <View style={{marginTop: 20}}>
-        <BackButtonScreenComponent style={{marginLeft: 27}} />
+      <View style={{ marginTop: 20 }}>
+        <BackButtonScreenComponent style={{ marginLeft: 27 }} />
       </View>
       <View
         style={{
@@ -50,13 +77,10 @@ const ProductListing = props => {
         }}>
         <Text style={styles.txtStyle}>{title}</Text>
       </View>
-      {/* <View>
-        <MaterialIndicator color="white" />
-      </View> */}
       {isLoading ? (
         <MaterialIndicator
           animating={true}
-          style={{marginVertical: 10}}
+          style={{ marginVertical: 10 }}
           size={50}
           color={AppColor.primary}
         />
@@ -70,7 +94,7 @@ const ProductListing = props => {
           }}
           overScrollMode="never"
           data={isData}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <View
               style={{
                 flex: 1,
@@ -78,18 +102,39 @@ const ProductListing = props => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <ItemsComponents
-                key={item.id ? item.id.toString() : Math.random().toString()}
-                img={{uri: item?.thumbnail}}
-                imgStyle={styles.imgStyle}
-                text={item?.brand}
-                priceText={item?.price}
-                numberOfLines={2}
-                item={item}
-                keyExtractor={item =>
-                  item.id ? item.id.toString() : Math.random().toString()
-                }
-              />
+              {checkProductExistInWishList(item?.id) ?
+                (<ItemsComponents
+                  key={item.id ? item.id.toString() : Math.random().toString()}
+                  img={{ uri: item?.thumbnail }}
+                  imgStyle={styles.imgStyle}
+                  text={item?.brand}
+                  priceText={item?.price}
+                  numberOfLines={2}
+                  item={item}
+                  onPress={() => handleRemoveWishListItems(item)}
+                  activeHeartIcon={AppIcons.icRedHeart}
+                  keyExtractor={item =>
+                    item.id ? item.id.toString() : Math.random().toString()
+                  }
+                />) : (
+                  <ItemsComponents
+                    key={item.id ? item.id.toString() : Math.random().toString()}
+                    img={{ uri: item?.thumbnail }}
+                    imgStyle={styles.imgStyle}
+                    text={item?.brand}
+                    priceText={item?.price}
+                    numberOfLines={2}
+                    item={item}
+                    onPress={() => handleWishListItmes(item)}
+                    activeHeartIcon={AppIcons.icHeart}
+                    keyExtractor={item =>
+                      item.id ? item.id.toString() : Math.random().toString()
+                    }
+                  />
+                )
+
+              }
+
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
@@ -106,6 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Roboto-Bold',
     color: AppColor.white,
+    paddingHorizontal: 8
   },
   imgStyle: {
     width: '100%',
