@@ -29,6 +29,7 @@ npm run ios
 # OR using Yarn
 yarn ios
 ```
+https://medium.com/@varunkukade999/qr-code-scanner-in-react-native-527577aa74b1
 
 If everything is set up correctly, your app should start running on your Android Emulator or iOS Simulator shortly. Alternatively, you can also run your app directly from within Android Studio and Xcode respectively.
 
