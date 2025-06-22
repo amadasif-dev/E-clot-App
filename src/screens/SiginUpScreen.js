@@ -15,10 +15,15 @@ import {AppRoutes} from '../routes/AppRoutes';
 import {Formik} from 'formik';
 import {signUpValidationSchema} from '../validation/validation';
 import BackButtonScreenComponent from '../components/BackButtonScreenComponent';
-import {handleUserSignUpAuth, handleUserSignup, handleUserSignupAuth} from '../auth/UserAuth';
+import {
+  handleUserSignUpAuth,
+  handleUserSignup,
+  handleUserSignupAuth,
+} from '../auth/UserAuth';
 import googleConfig from '../auth/config';
 import LoaderComponent from '../components/LoaderComponent';
 import {firebase} from '@react-native-firebase/auth';
+import AppIcons from '../constants/AppIcon';
 
 const SiginUpScreen = () => {
   const [loader, setLoader] = useState(false);
